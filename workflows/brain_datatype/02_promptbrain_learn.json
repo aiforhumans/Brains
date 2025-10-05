@@ -1,0 +1,271 @@
+{
+  "last_node_id": 9,
+  "last_link_id": 9,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "LoadImage",
+      "pos": [100, 100],
+      "size": [220, 320],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [1]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {},
+      "widgets_values": ["example.png", "image"],
+      "title": "📷 Load Test Image"
+    },
+    {
+      "id": 2,
+      "type": "BrainsXDEV_PromptBrainQualityScore",
+      "pos": [400, 100],
+      "size": [400, 410],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "quality_score",
+          "type": "FLOAT",
+          "links": [2]
+        },
+        {
+          "name": "detailed_analysis",
+          "type": "STRING",
+          "links": [3]
+        },
+        {
+          "name": "quality_grade",
+          "type": "STRING",
+          "links": [4]
+        },
+        {
+          "name": "technical_score",
+          "type": "FLOAT",
+          "links": null
+        },
+        {
+          "name": "artistic_score",
+          "type": "FLOAT",
+          "links": null
+        },
+        {
+          "name": "semantic_score",
+          "type": "FLOAT",
+          "links": null
+        }
+      ],
+      "properties": {},
+      "widgets_values": [
+        "test prompt for learning",
+        "overall_quality",
+        "standard",
+        "balanced",
+        0,
+        0,
+        true,
+        true,
+        true,
+        true
+      ],
+      "title": "🎯 Quality Analyzer"
+    },
+    {
+      "id": 3,
+      "type": "BrainsXDEV_PromptBrainSource",
+      "pos": [900, 100],
+      "size": [280, 110],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "brain_data",
+          "type": "BRAIN",
+          "links": [5]
+        }
+      ],
+      "properties": {},
+      "widgets_values": ["<auto_find>", false, true],
+      "title": "🧠 BRAIN Source"
+    },
+    {
+      "id": 4,
+      "type": "BrainsXDEV_PromptBrainLearnDirect",
+      "pos": [1250, 100],
+      "size": [400, 210],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "brain_data",
+          "type": "BRAIN",
+          "link": 5
+        },
+        {
+          "name": "score",
+          "type": "FLOAT",
+          "widget": {"name": "score"},
+          "link": 2
+        }
+      ],
+      "outputs": [
+        {
+          "name": "brain_data",
+          "type": "BRAIN",
+          "links": [6]
+        },
+        {
+          "name": "status",
+          "type": "STRING",
+          "links": [7]
+        }
+      ],
+      "properties": {},
+      "widgets_values": [
+        "test prompt for learning",
+        0.8,
+        "photorealistic",
+        "composition",
+        1.5
+      ],
+      "title": "📚 Learn from Prompt"
+    },
+    {
+      "id": 5,
+      "type": "ShowText|pysssss",
+      "pos": [1250, 370],
+      "size": [400, 150],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 7
+        }
+      ],
+      "outputs": [],
+      "properties": {},
+      "title": "✅ Learning Status"
+    },
+    {
+      "id": 6,
+      "type": "ShowText|pysssss",
+      "pos": [850, 370],
+      "size": [350, 250],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 3
+        }
+      ],
+      "outputs": [],
+      "properties": {},
+      "title": "📊 Quality Analysis"
+    },
+    {
+      "id": 7,
+      "type": "Show any [Crystools]",
+      "pos": [400, 560],
+      "size": [400, 150],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "any_value",
+          "type": "*",
+          "link": 2
+        }
+      ],
+      "outputs": [],
+      "properties": {},
+      "title": "🔍 Score Inspector"
+    },
+    {
+      "id": 8,
+      "type": "Show any [Crystools]",
+      "pos": [850, 660],
+      "size": [400, 150],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "any_value",
+          "type": "*",
+          "link": 6
+        }
+      ],
+      "outputs": [],
+      "properties": {},
+      "title": "🧠 BRAIN Data After Learning"
+    },
+    {
+      "id": 9,
+      "type": "Note",
+      "pos": [1700, 100],
+      "size": [350, 710],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "properties": {},
+      "widgets_values": [
+        "📚 PromptBrain Learn Workflow\n\n✅ Purpose:\nLearn from prompts with quality scoring\nto train the BRAIN for better generation\n\n📋 Workflow Steps:\n1. Load test image\n2. Analyze quality (automatic)\n3. Load/create BRAIN data\n4. Learn from prompt with score\n5. Review learning status\n\n🎯 Quality Score Node:\n• Analyzes image quality\n• Returns 0-1 score\n• Provides detailed breakdown\n• Technical/Artistic/Semantic\n\n📚 Learn Node Parameters:\nprompt: Text to learn from\nscore: Quality score (0-1)\n  - Auto-fed from Quality node\n  - Or manual value\nstyle_category: Style classification\n  - none, photorealistic, artistic\n  - anime, fantasy, abstract\n  - concept_art, portrait, etc.\nfeature_emphasis: What to focus on\n  - none, composition, lighting\n  - color, detail, atmosphere\nlearning_rate: How much to weight\n  - 1.0 = normal\n  - >1.0 = emphasize more\n  - <1.0 = gentle learning\n\n🔍 Debug Outputs:\n• Learning status = success message\n• Quality analysis = detailed report\n• Score inspector = raw score\n• BRAIN inspector = updated data\n\n💡 Tips:\n• Higher scores = better learning\n• Style categories group similar\n• Feature emphasis focuses learning\n• Learning rate adjusts impact\n• Check console for DB writes\n\n🎨 Style Categories:\nphotorealistic, artistic, anime,\nfantasy, abstract, concept_art,\nportrait, landscape, cinematic\n\n📐 Feature Emphasis:\ncomposition, lighting, color,\ndetail, atmosphere, perspective,\ntexture, mood"
+      ],
+      "color": "#233",
+      "bgcolor": "#355"
+    }
+  ],
+  "links": [
+    [1, 1, 0, 2, 0, "IMAGE"],
+    [2, 2, 0, 4, 1, "FLOAT"],
+    [3, 2, 1, 6, 0, "STRING"],
+    [4, 2, 2, 7, 0, "*"],
+    [5, 3, 0, 4, 0, "BRAIN"],
+    [6, 4, 0, 8, 0, "*"],
+    [7, 4, 1, 5, 0, "STRING"]
+  ],
+  "groups": [
+    {
+      "title": "📚 PromptBrain Learn - Training with Quality Scoring",
+      "bounding": [70, 30, 1600, 810],
+      "color": "#3f789e",
+      "font_size": 24
+    }
+  ],
+  "config": {},
+  "extra": {
+    "workspace_info": {
+      "id": "promptbrain-learn",
+      "version": "1.0.0",
+      "description": "Template for BrainsXDEV_PromptBrainLearnDirect - Learn from prompts with automatic quality scoring"
+    }
+  },
+  "version": 0.4
+}

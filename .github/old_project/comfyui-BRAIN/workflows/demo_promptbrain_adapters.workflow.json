@@ -1,0 +1,167 @@
+{
+  "last_node_id": 10,
+  "nodes": {
+    "1": {
+      "type": "LoadImage",
+      "pos": [
+        100,
+        100
+      ],
+      "widgets_values": {
+        "image": "example.png"
+      }
+    },
+    "2": {
+      "type": "PB_WD14Adapter",
+      "pos": [
+        400,
+        80
+      ],
+      "widgets_values": {
+        "onnx_model_path": "models/wd14/wd-v1-4-swinv2-tagger-v2.onnx",
+        "labels_csv_path": "models/wd14/selected_tags.csv",
+        "min_conf": 0.35
+      }
+    },
+    "3": {
+      "type": "PB_Florence2Adapter",
+      "pos": [
+        400,
+        240
+      ],
+      "widgets_values": {
+        "model_id": "microsoft/Florence-2-base",
+        "task_prompt": "<CAPTION>",
+        "max_new_tokens": 64
+      }
+    },
+    "4": {
+      "type": "PB_Scorer",
+      "pos": [
+        400,
+        380
+      ],
+      "widgets_values": {
+        "score": 0.9,
+        "notes": "good"
+      }
+    },
+    "5": {
+      "type": "PB_EMARanker",
+      "pos": [
+        650,
+        80
+      ],
+      "widgets_values": {
+        "alpha": 0.2,
+        "top_k": 16,
+        "feedback": 1.0
+      }
+    },
+    "6": {
+      "type": "PB_MemoryWrite",
+      "pos": [
+        650,
+        240
+      ],
+      "widgets_values": {
+        "context": "SDXL/adapter"
+      }
+    },
+    "7": {
+      "type": "PB_MemoryRead",
+      "pos": [
+        900,
+        240
+      ],
+      "widgets_values": {
+        "top_k": 5,
+        "min_score": 0.0,
+        "like_text": ""
+      }
+    },
+    "8": {
+      "type": "PB_PromptSuggester",
+      "pos": [
+        1150,
+        240
+      ],
+      "widgets_values": {
+        "max_terms": 16,
+        "negatives": "(watermark:1.2), (text:1.2)"
+      }
+    },
+    "9": {
+      "type": "CLIPTextEncode",
+      "pos": [
+        1400,
+        240
+      ],
+      "widgets_values": {}
+    },
+    "10": {
+      "type": "PreviewImage",
+      "pos": [
+        900,
+        80
+      ],
+      "widgets_values": {}
+    }
+  },
+  "links": [
+    [
+      1,
+      0,
+      2,
+      0
+    ],
+    [
+      1,
+      0,
+      3,
+      0
+    ],
+    [
+      2,
+      1,
+      5,
+      0
+    ],
+    [
+      2,
+      1,
+      6,
+      0
+    ],
+    [
+      3,
+      0,
+      6,
+      1
+    ],
+    [
+      4,
+      0,
+      6,
+      2
+    ],
+    [
+      7,
+      0,
+      8,
+      1
+    ],
+    [
+      2,
+      1,
+      8,
+      0
+    ],
+    [
+      8,
+      0,
+      9,
+      0
+    ]
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "last_node_id": 3,
+  "nodes": {
+    "1": {
+      "type": "LoadImage",
+      "pos": [
+        100,
+        100
+      ],
+      "widgets_values": {
+        "image": "example.png"
+      }
+    },
+    "2": {
+      "type": "XDEV_Brightness",
+      "pos": [
+        400,
+        100
+      ],
+      "widgets_values": {
+        "strength": 0.2
+      }
+    },
+    "3": {
+      "type": "PreviewImage",
+      "pos": [
+        700,
+        100
+      ],
+      "widgets_values": {}
+    }
+  },
+  "links": [
+    [
+      1,
+      0,
+      2,
+      0
+    ],
+    [
+      2,
+      0,
+      3,
+      0
+    ]
+  ]
+}

@@ -1,0 +1,12 @@
+[project]
+name = "comfyui-custom-nodes-xdev"
+version = "0.1.0"
+description = "Starter custom nodes and API workflow for ComfyUI"
+requires-python = ">=3.10"
+dependencies = ["numpy"]
+
+[project.optional-dependencies]
+dev = ["pytest", "websockets"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]

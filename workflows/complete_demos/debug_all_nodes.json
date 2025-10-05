@@ -1,0 +1,451 @@
+{
+  "last_node_id": 15,
+  "last_link_id": 15,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "Note",
+      "pos": [50, 50],
+      "size": [1800, 200],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "properties": {},
+      "widgets_values": [
+        "🔧 COMPREHENSIVE DEBUGGING WORKFLOW - Brains-XDEV All Nodes\n\n✅ Purpose: Test and debug all major Brains-XDEV nodes with comprehensive output inspection\n\n📋 Workflow Sections:\n1. IMAGE LOADING & PROCESSING - Load test images\n2. AI ADAPTERS - Florence-2 captioning, WD14 tagging\n3. QUALITY ANALYSIS - AI-powered quality scoring\n4. MEMORY OPERATIONS - SQLite read/write\n5. BRAIN DATATYPE - Source, Learn, Suggest workflow\n6. PARAMETER OPTIMIZATION - AI parameter tuning\n7. GENERATION - KSampler with BRAIN optimization\n\n🔍 Debug Nodes:\n• ShowText|pysssss - String outputs\n• Show any [Crystools] - Complex data inspection\n• Console - [Brains-XDEV] log messages\n\n⚡ Quick Test:\n1. Queue entire workflow\n2. Check each section's debug nodes\n3. Review console for errors\n4. Identify failing nodes\n5. Disable problematic sections\n6. Test subsections individually\n\n💡 Tips:\n• Disable sections with mode = 4 (bypass)\n• Enable only what you need to test\n• Check console first for quick diagnosis\n• Use Show any nodes for data structure\n• Save variations with descriptive names"
+      ],
+      "color": "#222",
+      "bgcolor": "#000"
+    },
+    {
+      "id": 2,
+      "type": "LoadImage",
+      "pos": [100, 300],
+      "size": [220, 320],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [1, 2, 3]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {},
+      "widgets_values": ["example.png", "image"],
+      "title": "📷 Test Image"
+    },
+    {
+      "id": 3,
+      "type": "BrainsXDEV_Florence2Adapter",
+      "pos": [400, 300],
+      "size": [350, 130],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "caption",
+          "type": "STRING",
+          "links": [4]
+        },
+        {
+          "name": "metadata",
+          "type": "DICT",
+          "links": [5]
+        }
+      ],
+      "properties": {},
+      "widgets_values": [
+        "microsoft/Florence-2-base",
+        "<CAPTION>",
+        64
+      ],
+      "title": "🤖 Florence-2"
+    },
+    {
+      "id": 4,
+      "type": "ShowText|pysssss",
+      "pos": [800, 300],
+      "size": [400, 150],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 4
+        }
+      ],
+      "outputs": [],
+      "properties": {},
+      "title": "📝 F2 Caption"
+    },
+    {
+      "id": 5,
+      "type": "Show any [Crystools]",
+      "pos": [800, 490],
+      "size": [400, 150],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "any_value",
+          "type": "*",
+          "link": 5
+        }
+      ],
+      "outputs": [],
+      "properties": {},
+      "title": "🔍 F2 Metadata"
+    },
+    {
+      "id": 6,
+      "type": "BrainsXDEV_PromptBrainQualityScore",
+      "pos": [400, 700],
+      "size": [400, 410],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 2
+        }
+      ],
+      "outputs": [
+        {
+          "name": "quality_score",
+          "type": "FLOAT",
+          "links": [6]
+        },
+        {
+          "name": "detailed_analysis",
+          "type": "STRING",
+          "links": [7]
+        },
+        {
+          "name": "quality_grade",
+          "type": "STRING",
+          "links": [8]
+        },
+        {
+          "name": "technical_score",
+          "type": "FLOAT",
+          "links": null
+        },
+        {
+          "name": "artistic_score",
+          "type": "FLOAT",
+          "links": null
+        },
+        {
+          "name": "semantic_score",
+          "type": "FLOAT",
+          "links": null
+        }
+      ],
+      "properties": {},
+      "widgets_values": [
+        "test image quality",
+        "overall_quality",
+        "standard",
+        "balanced",
+        0,
+        0,
+        true,
+        true,
+        true,
+        true
+      ],
+      "title": "🎯 Quality Score"
+    },
+    {
+      "id": 7,
+      "type": "ShowText|pysssss",
+      "pos": [850, 700],
+      "size": [350, 300],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 7
+        }
+      ],
+      "outputs": [],
+      "properties": {},
+      "title": "📊 Quality Analysis"
+    },
+    {
+      "id": 8,
+      "type": "Show any [Crystools]",
+      "pos": [850, 1050],
+      "size": [350, 150],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "any_value",
+          "type": "*",
+          "link": 6
+        }
+      ],
+      "outputs": [],
+      "properties": {},
+      "title": "🔢 Score Value"
+    },
+    {
+      "id": 9,
+      "type": "BrainsXDEV_MemoryWrite",
+      "pos": [1250, 300],
+      "size": [350, 150],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "caption",
+          "type": "STRING",
+          "widget": {"name": "caption"},
+          "link": 4
+        },
+        {
+          "name": "score",
+          "type": "FLOAT",
+          "widget": {"name": "score"},
+          "link": 6
+        }
+      ],
+      "outputs": [
+        {
+          "name": "status",
+          "type": "STRING",
+          "links": [9]
+        },
+        {
+          "name": "row_id",
+          "type": "INT",
+          "links": [10]
+        }
+      ],
+      "properties": {},
+      "widgets_values": [
+        "debug workflow test caption",
+        0.8
+      ],
+      "title": "💾 Save to Memory"
+    },
+    {
+      "id": 10,
+      "type": "ShowText|pysssss",
+      "pos": [1650, 300],
+      "size": [300, 100],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 9
+        }
+      ],
+      "outputs": [],
+      "properties": {},
+      "title": "✅ Memory Status"
+    },
+    {
+      "id": 11,
+      "type": "BrainsXDEV_PromptBrainSource",
+      "pos": [100, 1300],
+      "size": [280, 110],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "brain_data",
+          "type": "BRAIN",
+          "links": [11]
+        }
+      ],
+      "properties": {},
+      "widgets_values": ["<auto_find>", false, true],
+      "title": "🧠 BRAIN Source"
+    },
+    {
+      "id": 12,
+      "type": "BrainsXDEV_PromptBrainLearnDirect",
+      "pos": [450, 1300],
+      "size": [400, 210],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "brain_data",
+          "type": "BRAIN",
+          "link": 11
+        },
+        {
+          "name": "score",
+          "type": "FLOAT",
+          "widget": {"name": "score"},
+          "link": 6
+        }
+      ],
+      "outputs": [
+        {
+          "name": "brain_data",
+          "type": "BRAIN",
+          "links": [12]
+        },
+        {
+          "name": "status",
+          "type": "STRING",
+          "links": [13]
+        }
+      ],
+      "properties": {},
+      "widgets_values": [
+        "debug workflow test prompt",
+        0.8,
+        "photorealistic",
+        "composition",
+        1.5
+      ],
+      "title": "📚 BRAIN Learn"
+    },
+    {
+      "id": 13,
+      "type": "ShowText|pysssss",
+      "pos": [900, 1300],
+      "size": [350, 150],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 13
+        }
+      ],
+      "outputs": [],
+      "properties": {},
+      "title": "✅ Learn Status"
+    },
+    {
+      "id": 14,
+      "type": "Show any [Crystools]",
+      "pos": [900, 1490],
+      "size": [350, 200],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "any_value",
+          "type": "*",
+          "link": 12
+        }
+      ],
+      "outputs": [],
+      "properties": {},
+      "title": "🧠 BRAIN Data"
+    },
+    {
+      "id": 15,
+      "type": "Note",
+      "pos": [1300, 1300],
+      "size": [550, 390],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "properties": {},
+      "widgets_values": [
+        "🔍 Debugging Checklist\n\n✅ Console Logs:\n• [Brains-XDEV] messages\n• Model loading status\n• Database operations\n• Error stack traces\n\n📊 Debug Nodes:\n• ShowText - String outputs\n• Show any - Complex data\n• Note - Documentation\n\n🎯 Testing Strategy:\n\n1. Test Core Functionality:\n   ☐ Image loads correctly\n   ☐ Florence-2 generates caption\n   ☐ Quality score calculates\n   ☐ Memory write succeeds\n   ☐ BRAIN data creates\n   ☐ Learning saves data\n\n2. Check Data Flow:\n   ☐ Caption flows to memory\n   ☐ Score flows to learn\n   ☐ BRAIN data updates\n\n3. Verify Outputs:\n   ☐ No error messages\n   ☐ Status shows success\n   ☐ Metadata is populated\n   ☐ Scores in valid range\n\n4. Performance:\n   ☐ Execution completes\n   ☐ No timeouts\n   ☐ Memory efficient\n\n💡 Quick Fixes:\n• Clear __pycache__\n• Restart ComfyUI\n• Check dependencies\n• Verify model downloads\n• Review console errors"
+      ],
+      "color": "#233",
+      "bgcolor": "#355"
+    }
+  ],
+  "links": [
+    [1, 2, 0, 3, 0, "IMAGE"],
+    [2, 2, 0, 6, 0, "IMAGE"],
+    [4, 3, 0, 4, 0, "STRING"],
+    [5, 3, 1, 5, 0, "*"],
+    [6, 6, 0, 8, 0, "*"],
+    [7, 6, 1, 7, 0, "STRING"],
+    [8, 6, 2, null, 0, "STRING"],
+    [9, 9, 0, 10, 0, "STRING"],
+    [10, 9, 1, null, 0, "INT"],
+    [11, 11, 0, 12, 0, "BRAIN"],
+    [12, 12, 0, 14, 0, "*"],
+    [13, 12, 1, 13, 0, "STRING"],
+    [4, 3, 0, 9, 0, "STRING"],
+    [6, 6, 0, 9, 1, "FLOAT"],
+    [6, 6, 0, 12, 1, "FLOAT"]
+  ],
+  "groups": [
+    {
+      "title": "📷 IMAGE LOADING",
+      "bounding": [70, 270, 270, 380],
+      "color": "#3f789e",
+      "font_size": 18
+    },
+    {
+      "title": "🤖 AI ADAPTERS",
+      "bounding": [370, 270, 860, 400],
+      "color": "#a1309b",
+      "font_size": 18
+    },
+    {
+      "title": "🎯 QUALITY ANALYSIS",
+      "bounding": [370, 670, 860, 560],
+      "color": "#88a",
+      "font_size": 18
+    },
+    {
+      "title": "💾 MEMORY OPERATIONS",
+      "bounding": [1220, 270, 760, 210],
+      "color": "#626",
+      "font_size": 18
+    },
+    {
+      "title": "🧠 BRAIN DATATYPE WORKFLOW",
+      "bounding": [70, 1270, 1210, 450],
+      "color": "#8a8",
+      "font_size": 18
+    }
+  ],
+  "config": {},
+  "extra": {
+    "workspace_info": {
+      "id": "debug-all-nodes",
+      "version": "1.0.0",
+      "description": "Comprehensive debugging workflow for all major Brains-XDEV nodes with extensive output inspection"
+    }
+  },
+  "version": 0.4
+}

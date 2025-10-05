@@ -1,0 +1,21 @@
+[project]
+name = "comfyui-brains-xdev"
+version = "0.1.0"
+description = "Brains-XDEV custom nodes for ComfyUI with PromptBrain AI functionality"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy",
+    "pillow>=8.0.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "websockets"]
+ai = [
+    "torch>=1.13.0",
+    "transformers>=4.40.0",
+    "onnxruntime",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["src/tests"]

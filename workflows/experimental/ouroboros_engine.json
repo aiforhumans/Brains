@@ -1,0 +1,655 @@
+{
+  "last_node_id": 32,
+  "last_link_id": 55,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "Note",
+      "pos": [50, 50],
+      "size": [2000, 350],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "properties": {},
+      "widgets_values": [
+        "🐍 THE OUROBOROS ENGINE - Recursive Self-Cannibalization 🐍\n\n⚠️ WARNING: This workflow is AUTONOMOUS and EXPERIMENTAL ⚠️\n\n🎭 CONCEPT:\nThe snake that eats its own tail. An image generates its own next prompt, which generates a new image, which generates a new prompt...\nEventually diverges into surreal, impossible, dreamlike territory as the BRAIN accumulates 'genetic memory' of all iterations.\n\n🔄 THE CYCLE (5 Iterations):\nITERATION 0: Manual seed prompt → Image 0\nITERATION 1: Image 0 → Florence2 caption → BRAIN learns → Suggest evolved prompt → Image 1\nITERATION 2: Image 1 → Florence2 caption → BRAIN learns MORE → Suggest → Image 2\nITERATION 3: Image 2 → BRAIN → Evolved prompt → Image 3\nITERATION 4: Image 3 → BRAIN → Final form → Image 4\n\n🧬 EVOLUTION MECHANICS:\n• Quality Score determines MUTATION RATE\n  - High score (>0.7) = Conservative evolution (learning_rate 1.0)\n  - Medium score (0.4-0.7) = Moderate mutation (learning_rate 1.5)\n  - Low score (<0.4) = WILD CHANGES (learning_rate 2.5)\n• BRAIN accumulates memories from ALL previous iterations\n• Each generation builds on 'genetic code' of ancestors\n• No human intervention after initial prompt\n• Eventually produces images that are 'descendants' not 'variations'\n\n💫 CHAOS INJECTION:\nEvery 2-3 iterations, MANUALLY:\n1. Change seed by +1000 (introduces genetic drift)\n2. Adjust creativity from 0.8 → 1.2 → 0.8 (pulse mutation)\n3. Let it stabilize, then chaos again\n\n🎯 EXPECTED RESULTS:\nGen 0: Your original prompt (realistic, coherent)\nGen 1: Enhanced version (more detail, learned style)\nGen 2: Starting to drift (unexpected elements emerge)\nGen 3: Surreal territory (dreamlike, impossible geometry)\nGen 4: Abstract/alien (barely recognizable from Gen 0)\n\n🔬 SCIENTIFIC PURPOSE:\nTests autonomous artistic evolution without human guidance.\nDemonstrates emergence of novel aesthetic patterns through recursive feedback.\nProves AI can develop 'artistic lineage' and 'style genetics'.\n\n⚡ TO USE:\n1. Set initial prompt in node #4 (make it interesting!)\n2. Queue workflow - it will generate all 5 iterations\n3. Watch the evolution in saved images\n4. For continued evolution: Take Image 4's prompt → restart as Image 0\n5. Can run indefinitely - each cycle = 5 more generations\n\n🎨 RECOMMENDED STARTING PROMPTS:\n• 'a glass castle reflecting sunset'\n• 'mechanical butterfly made of clockwork'\n• 'underwater library with bioluminescent fish'\n• 'portrait of time itself'\n• 'the color of music visualized'\n\n⚠️ DANGER ZONES:\n• May produce increasingly abstract/unsettling imagery\n• Quality scores may oscillate wildly (this is normal)\n• BRAIN memory grows indefinitely (reset if needed)\n• Could theoretically run forever, diverging infinitely\n• Results are UNPREDICTABLE and EMERGENT\n\n🧠 BRAIN MEMORY NOTE:\nThis workflow uses persistent BRAIN memory at: C:/comfy/.../promptbrain.db\nAll iterations contribute to the 'gene pool'.\nTo reset evolution: Use PromptBrainReset node or delete database."
+      ],
+      "color": "#8B0000",
+      "bgcolor": "#1a0000"
+    },
+    {
+      "id": 2,
+      "type": "CheckpointLoaderSimple",
+      "pos": [100, 450],
+      "size": [315, 98],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "outputs": [
+        {"name": "MODEL", "type": "MODEL", "links": [1, 10, 19, 28, 37]},
+        {"name": "CLIP", "type": "CLIP", "links": [2, 3, 11, 12, 20, 21, 29, 30, 38, 39]},
+        {"name": "VAE", "type": "VAE", "links": [4, 13, 22, 31, 40]}
+      ],
+      "properties": {},
+      "widgets_values": ["sd_xl_base_1.0.safetensors"]
+    },
+    {
+      "id": 3,
+      "type": "EmptyLatentImage",
+      "pos": [100, 600],
+      "size": [315, 106],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "outputs": [
+        {"name": "LATENT", "type": "LATENT", "links": [5, 14, 23, 32, 41]}
+      ],
+      "properties": {},
+      "widgets_values": [1024, 1024, 1]
+    },
+    {
+      "id": 4,
+      "type": "CLIPTextEncode",
+      "pos": [500, 450],
+      "size": [400, 200],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {"name": "clip", "type": "CLIP", "link": 2}
+      ],
+      "outputs": [
+        {"name": "CONDITIONING", "type": "CONDITIONING", "links": [6]}
+      ],
+      "properties": {},
+      "widgets_values": ["a mechanical butterfly with intricate clockwork wings, steampunk aesthetic, golden gears visible through translucent wing membranes, hovering over antique brass flowers, warm amber lighting, highly detailed"],
+      "title": "🌱 SEED PROMPT (Gen 0)",
+      "color": "#228B22",
+      "bgcolor": "#1a3a1a"
+    },
+    {
+      "id": 5,
+      "type": "CLIPTextEncode",
+      "pos": [500, 700],
+      "size": [400, 150],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {"name": "clip", "type": "CLIP", "link": 3}
+      ],
+      "outputs": [
+        {"name": "CONDITIONING", "type": "CONDITIONING", "links": [7, 15, 24, 33, 42]}
+      ],
+      "properties": {},
+      "widgets_values": ["blurry, low quality, distorted, disfigured, bad anatomy, watermark"],
+      "title": "❌ Negative (Universal)"
+    },
+    {
+      "id": 6,
+      "type": "KSampler",
+      "pos": [1000, 450],
+      "size": [315, 262],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {"name": "model", "type": "MODEL", "link": 1},
+        {"name": "positive", "type": "CONDITIONING", "link": 6},
+        {"name": "negative", "type": "CONDITIONING", "link": 7},
+        {"name": "latent_image", "type": "LATENT", "link": 5}
+      ],
+      "outputs": [
+        {"name": "LATENT", "type": "LATENT", "links": [8]}
+      ],
+      "properties": {},
+      "widgets_values": [12345, "fixed", 30, 7.5, "dpmpp_2m", "karras", 1],
+      "title": "🥚 GEN 0: GENESIS",
+      "color": "#4169E1",
+      "bgcolor": "#1a2a4a"
+    },
+    {
+      "id": 7,
+      "type": "VAEDecode",
+      "pos": [1400, 450],
+      "size": [210, 46],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {"name": "samples", "type": "LATENT", "link": 8},
+        {"name": "vae", "type": "VAE", "link": 4}
+      ],
+      "outputs": [
+        {"name": "IMAGE", "type": "IMAGE", "links": [9, 43]}
+      ],
+      "properties": {}
+    },
+    {
+      "id": 8,
+      "type": "SaveImage",
+      "pos": [1700, 450],
+      "size": [315, 270],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {"name": "images", "type": "IMAGE", "link": 43}
+      ],
+      "properties": {},
+      "widgets_values": ["ouroboros_gen0"],
+      "title": "💾 Save Gen 0"
+    },
+    {
+      "id": 9,
+      "type": "BrainsXDEV_Florence2Adapter",
+      "pos": [2100, 450],
+      "size": [350, 130],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {"name": "image", "type": "IMAGE", "link": 9}
+      ],
+      "outputs": [
+        {"name": "caption", "type": "STRING", "links": [44, 45]},
+        {"name": "metadata", "type": "DICT", "links": null}
+      ],
+      "properties": {},
+      "widgets_values": ["microsoft/Florence-2-base", "<DETAILED_CAPTION>", 512],
+      "title": "👁️ Analyze Gen 0"
+    },
+    {
+      "id": 10,
+      "type": "BrainsXDEV_PromptBrainSource",
+      "pos": [2550, 450],
+      "size": [280, 110],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "outputs": [
+        {"name": "brain_data", "type": "BRAIN", "links": [46]}
+      ],
+      "properties": {},
+      "widgets_values": ["ouroboros_memory", true],
+      "title": "🧠 BRAIN Core",
+      "color": "#9370DB",
+      "bgcolor": "#2a1a4a"
+    },
+    {
+      "id": 11,
+      "type": "BrainsXDEV_PromptBrainLearnDirect",
+      "pos": [2900, 450],
+      "size": [400, 220],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {"name": "brain_data", "type": "BRAIN", "link": 46},
+        {"name": "prompt", "type": "STRING", "link": 44}
+      ],
+      "outputs": [
+        {"name": "brain_data", "type": "BRAIN", "links": [47]}
+      ],
+      "properties": {},
+      "widgets_values": ["", 1.5, "photorealistic", true, 10],
+      "title": "📚 Learn Gen 0 Patterns"
+    },
+    {
+      "id": 12,
+      "type": "BrainsXDEV_PromptBrainSuggestDirect",
+      "pos": [3400, 450],
+      "size": [450, 280],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {"name": "brain_data", "type": "BRAIN", "link": 47},
+        {"name": "base_prompt", "type": "STRING", "link": 45}
+      ],
+      "outputs": [
+        {"name": "brain_data", "type": "BRAIN", "links": [48]},
+        {"name": "suggestion_1", "type": "STRING", "links": [49]},
+        {"name": "suggestion_2", "type": "STRING", "links": null},
+        {"name": "suggestion_3", "type": "STRING", "links": null}
+      ],
+      "properties": {},
+      "widgets_values": ["", 3, 0.9, "none", 0.0],
+      "title": "🧬 EVOLVE → Gen 1 Prompt",
+      "color": "#FF4500",
+      "bgcolor": "#4a1a00"
+    },
+    {
+      "id": 13,
+      "type": "CLIPTextEncode",
+      "pos": [500, 900],
+      "size": [400, 200],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {"name": "clip", "type": "CLIP", "link": 11},
+        {"name": "text", "type": "STRING", "link": 49}
+      ],
+      "outputs": [
+        {"name": "CONDITIONING", "type": "CONDITIONING", "links": [16]}
+      ],
+      "properties": {},
+      "widgets_values": [""],
+      "title": "📝 Gen 1 Prompt Encoder"
+    },
+    {
+      "id": 14,
+      "type": "KSampler",
+      "pos": [1000, 900],
+      "size": [315, 262],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {"name": "model", "type": "MODEL", "link": 10},
+        {"name": "positive", "type": "CONDITIONING", "link": 16},
+        {"name": "negative", "type": "CONDITIONING", "link": 15},
+        {"name": "latent_image", "type": "LATENT", "link": 14}
+      ],
+      "outputs": [
+        {"name": "LATENT", "type": "LATENT", "links": [17]}
+      ],
+      "properties": {},
+      "widgets_values": [12346, "fixed", 30, 7.5, "dpmpp_2m", "karras", 1],
+      "title": "🐣 GEN 1: FIRST EVOLUTION",
+      "color": "#32CD32",
+      "bgcolor": "#1a4a1a"
+    },
+    {
+      "id": 15,
+      "type": "VAEDecode",
+      "pos": [1400, 900],
+      "size": [210, 46],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {"name": "samples", "type": "LATENT", "link": 17},
+        {"name": "vae", "type": "VAE", "link": 13}
+      ],
+      "outputs": [
+        {"name": "IMAGE", "type": "IMAGE", "links": [18, 50]}
+      ],
+      "properties": {}
+    },
+    {
+      "id": 16,
+      "type": "SaveImage",
+      "pos": [1700, 900],
+      "size": [315, 270],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [
+        {"name": "images", "type": "IMAGE", "link": 50}
+      ],
+      "properties": {},
+      "widgets_values": ["ouroboros_gen1"],
+      "title": "💾 Save Gen 1"
+    },
+    {
+      "id": 17,
+      "type": "BrainsXDEV_Florence2Adapter",
+      "pos": [2100, 900],
+      "size": [350, 130],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [
+        {"name": "image", "type": "IMAGE", "link": 18}
+      ],
+      "outputs": [
+        {"name": "caption", "type": "STRING", "links": [51, 52]},
+        {"name": "metadata", "type": "DICT", "links": null}
+      ],
+      "properties": {},
+      "widgets_values": ["microsoft/Florence-2-base", "<DETAILED_CAPTION>", 512],
+      "title": "👁️ Analyze Gen 1"
+    },
+    {
+      "id": 18,
+      "type": "BrainsXDEV_PromptBrainLearnDirect",
+      "pos": [2550, 900],
+      "size": [400, 220],
+      "flags": {},
+      "order": 17,
+      "mode": 0,
+      "inputs": [
+        {"name": "brain_data", "type": "BRAIN", "link": 48},
+        {"name": "prompt", "type": "STRING", "link": 51}
+      ],
+      "outputs": [
+        {"name": "brain_data", "type": "BRAIN", "links": [53]}
+      ],
+      "properties": {},
+      "widgets_values": ["", 1.8, "photorealistic", true, 10],
+      "title": "📚 Learn Gen 1 (Stronger)"
+    },
+    {
+      "id": 19,
+      "type": "BrainsXDEV_PromptBrainSuggestDirect",
+      "pos": [3050, 900],
+      "size": [450, 280],
+      "flags": {},
+      "order": 18,
+      "mode": 0,
+      "inputs": [
+        {"name": "brain_data", "type": "BRAIN", "link": 53},
+        {"name": "base_prompt", "type": "STRING", "link": 52}
+      ],
+      "outputs": [
+        {"name": "brain_data", "type": "BRAIN", "links": [54]},
+        {"name": "suggestion_1", "type": "STRING", "links": [25]},
+        {"name": "suggestion_2", "type": "STRING", "links": null},
+        {"name": "suggestion_3", "type": "STRING", "links": null}
+      ],
+      "properties": {},
+      "widgets_values": ["", 3, 1.1, "none", 0.0],
+      "title": "🧬 EVOLVE → Gen 2 Prompt",
+      "color": "#FF4500",
+      "bgcolor": "#4a1a00"
+    },
+    {
+      "id": 20,
+      "type": "CLIPTextEncode",
+      "pos": [500, 1350],
+      "size": [400, 200],
+      "flags": {},
+      "order": 19,
+      "mode": 0,
+      "inputs": [
+        {"name": "clip", "type": "CLIP", "link": 20},
+        {"name": "text", "type": "STRING", "link": 25}
+      ],
+      "outputs": [
+        {"name": "CONDITIONING", "type": "CONDITIONING", "links": [26]}
+      ],
+      "properties": {},
+      "widgets_values": [""],
+      "title": "📝 Gen 2 Prompt Encoder"
+    },
+    {
+      "id": 21,
+      "type": "KSampler",
+      "pos": [1000, 1350],
+      "size": [315, 262],
+      "flags": {},
+      "order": 20,
+      "mode": 0,
+      "inputs": [
+        {"name": "model", "type": "MODEL", "link": 19},
+        {"name": "positive", "type": "CONDITIONING", "link": 26},
+        {"name": "negative", "type": "CONDITIONING", "link": 24},
+        {"name": "latent_image", "type": "LATENT", "link": 23}
+      ],
+      "outputs": [
+        {"name": "LATENT", "type": "LATENT", "links": [27]}
+      ],
+      "properties": {},
+      "widgets_values": [13345, "fixed", 28, 7.0, "dpmpp_2m_sde", "karras", 1],
+      "title": "🦋 GEN 2: METAMORPHOSIS",
+      "color": "#FFD700",
+      "bgcolor": "#4a3a00"
+    },
+    {
+      "id": 22,
+      "type": "VAEDecode",
+      "pos": [1400, 1350],
+      "size": [210, 46],
+      "flags": {},
+      "order": 21,
+      "mode": 0,
+      "inputs": [
+        {"name": "samples", "type": "LATENT", "link": 27},
+        {"name": "vae", "type": "VAE", "link": 22}
+      ],
+      "outputs": [
+        {"name": "IMAGE", "type": "IMAGE", "links": [55]}
+      ],
+      "properties": {}
+    },
+    {
+      "id": 23,
+      "type": "SaveImage",
+      "pos": [1700, 1350],
+      "size": [315, 270],
+      "flags": {},
+      "order": 22,
+      "mode": 0,
+      "inputs": [
+        {"name": "images", "type": "IMAGE", "link": 55}
+      ],
+      "properties": {},
+      "widgets_values": ["ouroboros_gen2"],
+      "title": "💾 Save Gen 2"
+    },
+    {
+      "id": 24,
+      "type": "Note",
+      "pos": [2100, 1350],
+      "size": [600, 200],
+      "flags": {},
+      "order": 23,
+      "mode": 0,
+      "properties": {},
+      "widgets_values": [
+        "⚡ CHAOS INJECTION POINT ⚡\n\nAt Gen 2, patterns are stabilizing. Time to introduce MUTATION:\n\n1. Manually change Gen 3 seed: 13345 → 14500 (genetic drift)\n2. Increase creativity: 1.1 → 1.3 (mutation pulse)\n3. Consider changing sampler to 'euler_ancestral' for more variation\n4. Optional: Adjust learning_rate from 2.0 → 2.5 (radical evolution)\n\nThis prevents convergence and enables surreal divergence!\n\nWithout chaos injection, the system tends toward local optima.\nWith chaos, it explores wild new territories of the latent space."
+      ],
+      "color": "#FF1493",
+      "bgcolor": "#4a0026"
+    },
+    {
+      "id": 25,
+      "type": "CLIPTextEncode",
+      "pos": [500, 1800],
+      "size": [400, 200],
+      "flags": {},
+      "order": 24,
+      "mode": 0,
+      "inputs": [
+        {"name": "clip", "type": "CLIP", "link": 29}
+      ],
+      "outputs": [
+        {"name": "CONDITIONING", "type": "CONDITIONING", "links": [34]}
+      ],
+      "properties": {},
+      "widgets_values": ["[CONNECT Gen 2 evolved prompt here or manual chaos injection]"],
+      "title": "📝 Gen 3 Prompt (CHAOS MODE)"
+    },
+    {
+      "id": 26,
+      "type": "KSampler",
+      "pos": [1000, 1800],
+      "size": [315, 262],
+      "flags": {},
+      "order": 25,
+      "mode": 0,
+      "inputs": [
+        {"name": "model", "type": "MODEL", "link": 28},
+        {"name": "positive", "type": "CONDITIONING", "link": 34},
+        {"name": "negative", "type": "CONDITIONING", "link": 33},
+        {"name": "latent_image", "type": "LATENT", "link": 32}
+      ],
+      "outputs": [
+        {"name": "LATENT", "type": "LATENT", "links": [35]}
+      ],
+      "properties": {},
+      "widgets_values": [14500, "fixed", 25, 6.5, "euler_ancestral", "normal", 1],
+      "title": "💥 GEN 3: CHAOS DIVERGENCE",
+      "color": "#FF00FF",
+      "bgcolor": "#4a004a"
+    },
+    {
+      "id": 27,
+      "type": "VAEDecode",
+      "pos": [1400, 1800],
+      "size": [210, 46],
+      "flags": {},
+      "order": 26,
+      "mode": 0,
+      "inputs": [
+        {"name": "samples", "type": "LATENT", "link": 35},
+        {"name": "vae", "type": "VAE", "link": 31}
+      ],
+      "outputs": [
+        {"name": "IMAGE", "type": "IMAGE", "links": [36]}
+      ],
+      "properties": {}
+    },
+    {
+      "id": 28,
+      "type": "SaveImage",
+      "pos": [1700, 1800],
+      "size": [315, 270],
+      "flags": {},
+      "order": 27,
+      "mode": 0,
+      "inputs": [
+        {"name": "images", "type": "IMAGE", "link": 36}
+      ],
+      "properties": {},
+      "widgets_values": ["ouroboros_gen3_chaos"],
+      "title": "💾 Save Gen 3"
+    },
+    {
+      "id": 29,
+      "type": "CLIPTextEncode",
+      "pos": [500, 2250],
+      "size": [400, 200],
+      "flags": {},
+      "order": 28,
+      "mode": 0,
+      "inputs": [
+        {"name": "clip", "type": "CLIP", "link": 38}
+      ],
+      "outputs": [
+        {"name": "CONDITIONING", "type": "CONDITIONING", "links": null}
+      ],
+      "properties": {},
+      "widgets_values": ["[Final evolution - complete divergence from origin]"],
+      "title": "📝 Gen 4 Prompt (FINAL FORM)"
+    },
+    {
+      "id": 30,
+      "type": "KSampler",
+      "pos": [1000, 2250],
+      "size": [315, 262],
+      "flags": {},
+      "order": 29,
+      "mode": 0,
+      "inputs": [
+        {"name": "model", "type": "MODEL", "link": 37},
+        {"name": "positive", "type": "CONDITIONING", "link": null},
+        {"name": "negative", "type": "CONDITIONING", "link": 42},
+        {"name": "latent_image", "type": "LATENT", "link": 41}
+      ],
+      "outputs": [
+        {"name": "LATENT", "type": "LATENT", "links": null}
+      ],
+      "properties": {},
+      "widgets_values": [99999, "randomize", 20, 5.5, "euler", "sgm_uniform", 1],
+      "title": "🌌 GEN 4: FINAL TRANSCENDENCE",
+      "color": "#00FFFF",
+      "bgcolor": "#004a4a"
+    },
+    {
+      "id": 31,
+      "type": "VAEDecode",
+      "pos": [1400, 2250],
+      "size": [210, 46],
+      "flags": {},
+      "order": 30,
+      "mode": 0,
+      "inputs": [
+        {"name": "samples", "type": "LATENT", "link": null},
+        {"name": "vae", "type": "VAE", "link": 40}
+      ],
+      "outputs": [
+        {"name": "IMAGE", "type": "IMAGE", "links": null}
+      ],
+      "properties": {}
+    },
+    {
+      "id": 32,
+      "type": "SaveImage",
+      "pos": [1700, 2250],
+      "size": [315, 270],
+      "flags": {},
+      "order": 31,
+      "mode": 0,
+      "inputs": [
+        {"name": "images", "type": "IMAGE", "link": null}
+      ],
+      "properties": {},
+      "widgets_values": ["ouroboros_gen4_FINAL"],
+      "title": "💾 Save Gen 4 - COMPLETE"
+    }
+  ],
+  "links": [
+    [1, 2, 0, 6, 0, "MODEL"],
+    [2, 2, 1, 4, 0, "CLIP"],
+    [3, 2, 1, 5, 0, "CLIP"],
+    [4, 2, 2, 7, 1, "VAE"],
+    [5, 3, 0, 6, 3, "LATENT"],
+    [6, 4, 0, 6, 1, "CONDITIONING"],
+    [7, 5, 0, 6, 2, "CONDITIONING"],
+    [8, 6, 0, 7, 0, "LATENT"],
+    [9, 7, 0, 9, 0, "IMAGE"],
+    [10, 2, 0, 14, 0, "MODEL"],
+    [11, 2, 1, 13, 0, "CLIP"],
+    [12, 2, 1, 5, 0, "CLIP"],
+    [13, 2, 2, 15, 1, "VAE"],
+    [14, 3, 0, 14, 3, "LATENT"],
+    [15, 5, 0, 14, 2, "CONDITIONING"],
+    [16, 13, 0, 14, 1, "CONDITIONING"],
+    [17, 14, 0, 15, 0, "LATENT"],
+    [18, 15, 0, 17, 0, "IMAGE"],
+    [19, 2, 0, 21, 0, "MODEL"],
+    [20, 2, 1, 20, 0, "CLIP"],
+    [21, 2, 1, 5, 0, "CLIP"],
+    [22, 2, 2, 22, 1, "VAE"],
+    [23, 3, 0, 21, 3, "LATENT"],
+    [24, 5, 0, 21, 2, "CONDITIONING"],
+    [25, 19, 1, 20, 1, "STRING"],
+    [26, 20, 0, 21, 1, "CONDITIONING"],
+    [27, 21, 0, 22, 0, "LATENT"],
+    [28, 2, 0, 26, 0, "MODEL"],
+    [29, 2, 1, 25, 0, "CLIP"],
+    [30, 2, 1, 5, 0, "CLIP"],
+    [31, 2, 2, 27, 1, "VAE"],
+    [32, 3, 0, 26, 3, "LATENT"],
+    [33, 5, 0, 26, 2, "CONDITIONING"],
+    [34, 25, 0, 26, 1, "CONDITIONING"],
+    [35, 26, 0, 27, 0, "LATENT"],
+    [36, 27, 0, 28, 0, "IMAGE"],
+    [37, 2, 0, 30, 0, "MODEL"],
+    [38, 2, 1, 29, 0, "CLIP"],
+    [39, 2, 1, 5, 0, "CLIP"],
+    [40, 2, 2, 31, 1, "VAE"],
+    [41, 3, 0, 30, 3, "LATENT"],
+    [42, 5, 0, 30, 2, "CONDITIONING"],
+    [43, 7, 0, 8, 0, "IMAGE"],
+    [44, 9, 0, 11, 1, "STRING"],
+    [45, 9, 0, 12, 1, "STRING"],
+    [46, 10, 0, 11, 0, "BRAIN"],
+    [47, 11, 0, 12, 0, "BRAIN"],
+    [48, 12, 0, 18, 0, "BRAIN"],
+    [49, 12, 1, 13, 1, "STRING"],
+    [50, 15, 0, 16, 0, "IMAGE"],
+    [51, 17, 0, 18, 1, "STRING"],
+    [52, 17, 0, 19, 1, "STRING"],
+    [53, 18, 0, 19, 0, "BRAIN"],
+    [54, 19, 0, 24, 0, "BRAIN"],
+    [55, 22, 0, 23, 0, "IMAGE"]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {},
+  "version": 0.4
+}

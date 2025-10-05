@@ -1,0 +1,103 @@
+{
+  "client_id": "brains-xdev-demo",
+  "prompt": {
+    "1": {
+      "class_type": "LoadImage",
+      "inputs": {
+        "image": "example.png"
+      }
+    },
+    "2": {
+      "class_type": "BrainsXDEV_Brightness",
+      "inputs": {
+        "image": [
+          "1",
+          0
+        ],
+        "strength": 0.15
+      }
+    },
+    "3": {
+      "class_type": "BrainsXDEV_Tagger",
+      "inputs": {
+        "image": [
+          "2",
+          0
+        ],
+        "min_conf": 0.35,
+        "allow_list": "mock",
+        "deny_list": ""
+      }
+    },
+    "4": {
+      "class_type": "BrainsXDEV_Captioner",
+      "inputs": {
+        "image": [
+          "2",
+          0
+        ],
+        "model_hint": "mock",
+        "caption_prompt": "Describe this image"
+      }
+    },
+    "5": {
+      "class_type": "BrainsXDEV_Scorer",
+      "inputs": {
+        "score": 0.8,
+        "notes": "Demo scoring example"
+      }
+    },
+    "6": {
+      "class_type": "BrainsXDEV_MemoryWrite",
+      "inputs": {
+        "tags_dict": [
+          "3",
+          1
+        ],
+        "caption": [
+          "4",
+          0
+        ],
+        "score": [
+          "5",
+          0
+        ],
+        "context": "demo-workflow"
+      }
+    },
+    "7": {
+      "class_type": "BrainsXDEV_MemoryRead",
+      "inputs": {
+        "top_k": 5,
+        "min_score": 0.0,
+        "like_text": ""
+      }
+    },
+    "8": {
+      "class_type": "BrainsXDEV_PromptSuggester",
+      "inputs": {
+        "tags_dict": [
+          "3",
+          1
+        ],
+        "captions": [
+          "7",
+          0
+        ],
+        "max_terms": 16,
+        "negatives": "low quality, blurry",
+        "style_prefix": "",
+        "quality_prefix": "masterpiece, best quality, "
+      }
+    },
+    "9": {
+      "class_type": "PreviewImage",
+      "inputs": {
+        "images": [
+          "2",
+          0
+        ]
+      }
+    }
+  }
+}

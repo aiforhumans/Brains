@@ -1,0 +1,181 @@
+{
+  "last_node_id": 7,
+  "last_link_id": 7,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "LoadImage",
+      "pos": [100, 100],
+      "size": [220, 320],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [1]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {},
+      "widgets_values": ["example.png", "image"],
+      "title": "📷 Load Image"
+    },
+    {
+      "id": 2,
+      "type": "BrainsXDEV_Florence2Adapter",
+      "pos": [400, 100],
+      "size": [350, 130],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "caption",
+          "type": "STRING",
+          "links": [2]
+        },
+        {
+          "name": "metadata",
+          "type": "DICT",
+          "links": [3]
+        }
+      ],
+      "properties": {},
+      "widgets_values": [
+        "microsoft/Florence-2-base",
+        "<CAPTION>",
+        64
+      ],
+      "title": "🤖 Florence-2 Captioner"
+    },
+    {
+      "id": 3,
+      "type": "ShowText|pysssss",
+      "pos": [800, 100],
+      "size": [500, 200],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 2
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [4]
+        }
+      ],
+      "properties": {},
+      "title": "📝 Generated Caption"
+    },
+    {
+      "id": 4,
+      "type": "Show any [Crystools]",
+      "pos": [800, 350],
+      "size": [500, 200],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "any_value",
+          "type": "*",
+          "link": 3
+        }
+      ],
+      "outputs": [],
+      "properties": {},
+      "title": "🔍 Metadata Inspector"
+    },
+    {
+      "id": 5,
+      "type": "Show any [Crystools]",
+      "pos": [1350, 100],
+      "size": [400, 150],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "any_value",
+          "type": "*",
+          "link": 4
+        }
+      ],
+      "outputs": [],
+      "properties": {},
+      "title": "📊 Caption Data"
+    },
+    {
+      "id": 6,
+      "type": "Note",
+      "pos": [100, 470],
+      "size": [650, 350],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "properties": {},
+      "widgets_values": [
+        "🤖 Florence-2 Adapter Configuration\n\n📋 Model IDs (HuggingFace):\n• microsoft/Florence-2-base (200M params)\n• microsoft/Florence-2-large (770M params)\n• microsoft/Florence-2-base-ft (fine-tuned)\n\n🎯 Task Prompts:\n<CAPTION> - Dense captioning\n<DETAILED_CAPTION> - Detailed description\n<MORE_DETAILED_CAPTION> - Very detailed\n<OD> - Object detection\n<DENSE_REGION_CAPTION> - Region captions\n<REGION_PROPOSAL> - Propose regions\n<CAPTION_TO_PHRASE_GROUNDING> - Phrase ground\n<REFERRING_EXPRESSION_SEGMENTATION> - Segment\n<REGION_TO_SEGMENTATION> - Region segment\n<OPEN_VOCABULARY_DETECTION> - Open vocab detect\n<REGION_TO_CATEGORY> - Categorize region\n<REGION_TO_DESCRIPTION> - Describe region\n\n⚙️ Parameters:\nmodel_id: HuggingFace model path\ntask_prompt: Task to perform\nmax_new_tokens: Max output length (8-256)\n\n💡 First run downloads model (~1-3GB)\n🔧 SDPA compatibility fixed for newer Transformers\n📊 Check console for loading progress"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 7,
+      "type": "Note",
+      "pos": [800, 600],
+      "size": [950, 220],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "properties": {},
+      "widgets_values": [
+        "🔧 Troubleshooting Florence-2 Adapter\n\n✅ Success Indicators:\n• Caption text appears in ShowText\n• Metadata shows \"status\": \"success\"\n• Console shows \"Florence-2 model loaded\"\n• No error messages\n\n❌ Common Issues:\n\n1. SDPA Error ('_supports_sdpa' attribute)\n   ✓ Fixed in latest version - uses eager attention\n   ✓ Check console for fallback loading messages\n\n2. Tensor Type Error ('astype' attribute)\n   ✓ Fixed in latest version - handles torch tensors\n   ✓ Converts tensors to numpy automatically\n\n3. Model Download Issues:\n   • Check internet connection\n   • Verify HuggingFace access\n   • Models cache in: ~/.cache/huggingface/\n\n4. CUDA Out of Memory:\n   • Use -base model instead of -large\n   • Close other applications\n   • Reduce max_new_tokens\n\n5. Import Errors:\n   • Install: pip install transformers torch\n   • Check: C:/comfy/.../python_embeded/python.exe -m pip list\n\n🔍 Debug Steps:\n1. Check console for [Brains-XDEV] messages\n2. Review metadata for error details\n3. Try <CAPTION> task first (simplest)\n4. Test with small max_new_tokens (32)\n5. Verify image loads correctly\n\n📊 Expected Output:\n• Caption: Natural language description\n• Metadata: {\"status\": \"success\", \"model_id\": \"...\", \"device\": \"cuda/cpu\"}"
+      ],
+      "color": "#233",
+      "bgcolor": "#355"
+    }
+  ],
+  "links": [
+    [1, 1, 0, 2, 0, "IMAGE"],
+    [2, 2, 0, 3, 0, "STRING"],
+    [3, 2, 1, 4, 0, "*"],
+    [4, 3, 0, 5, 0, "*"]
+  ],
+  "groups": [
+    {
+      "title": "🤖 Florence-2 Adapter - Image Captioning with Debug",
+      "bounding": [70, 30, 1710, 820],
+      "color": "#3f789e",
+      "font_size": 24
+    }
+  ],
+  "config": {},
+  "extra": {
+    "workspace_info": {
+      "id": "florence2-adapter-debug",
+      "version": "1.0.0",
+      "description": "Template for BrainsXDEV_Florence2Adapter with comprehensive debugging - Fixed SDPA and tensor conversion issues"
+    }
+  },
+  "version": 0.4
+}

@@ -1,0 +1,567 @@
+{
+  "last_node_id": 28,
+  "last_link_id": 45,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "Note",
+      "pos": [50, 50],
+      "size": [2300, 400],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "properties": {},
+      "widgets_values": [
+        "⏰ TEMPORAL PARADOX GENERATOR - Non-Linear Time Loop 🌀\n\n⚠️ EXTREME WARNING: This workflow violates causality ⚠️\n\n🎭 CONCEPT:\nWhat if Generation B could influence Generation A BEFORE A exists?\nWe create a time loop where future generations modify past generations' learning data.\nEventually, images generate themselves from memories of futures that never happened.\n\n⏳ THE PARADOX:\n\n🔵 TIMELINE ALPHA (The \"Past\"):\n1. Generate Image A0 with seed prompt\n2. BRAIN-A learns from A0\n3. Generate Image A1 from learned patterns\n4. BUT WAIT... Timeline Beta's quality score RETROACTIVELY modifies BRAIN-A's memory!\n5. Regenerate A1 with \"future knowledge\" that shouldn't exist yet\n6. Creates \"echo images\" - outputs influenced by never-generated futures\n\n🔴 TIMELINE BETA (The \"Future\"):\n1. Generate Image B0 with same seed prompt BUT different parameters\n2. BRAIN-B learns from B0\n3. Quality Score from B0 is transmitted BACKWARDS to Timeline Alpha\n4. Timeline Alpha adjusts based on Timeline Beta's \"future\" results\n5. Creates causality violation - Beta influenced Alpha, but Alpha's changes affect Beta\n6. PARADOX: Which came first?\n\n🌀 CROSS-CONTAMINATION:\n• BRAIN-A receives memories from BRAIN-B (from the future)\n• BRAIN-B receives corrections from BRAIN-A (from the past)\n• Both timelines exist simultaneously but influence each other non-linearly\n• Creates impossible images that are \"echoes\" of multiple timelines\n• Eventually: Temporal convergence or divergence?\n\n⚛️ QUANTUM EFFECTS:\n• Images exist in superposition (both timelines simultaneously)\n• \"Observation\" (quality scoring) collapses wavefunction\n• Grandfather paradox: If B prevents A, what generated B?\n• Timeline branches stored separately but memories merge\n• Creates \"Schrödinger's image\" - simultaneously perfect and corrupted\n\n🔮 EXPECTED OUTCOMES:\n\nRun 1 (No Memory):\n• Timeline A and B are independent\n• Clear differences between outputs\n• No paradoxes yet\n• Baseline established\n\nRun 2 (Memory Activated):\n• BRAIN-A has B's memories\n• BRAIN-B has A's memories\n• Outputs start converging\n• Causality weakens\n\nRun 3 (Paradox Emerges):\n• Images that shouldn't be possible\n• Both timelines generate identical output despite different params\n• OR: Total divergence (temporal war)\n• Grandfather paradox triggers\n\nRun 4+ (Temporal Chaos):\n• Multiple timeline echoes\n• Images from futures that never happened\n• Non-linear aesthetic evolution\n• Time no longer matters\n\n🧪 SCIENTIFIC PURPOSE:\nTests if AI can learn from causally-invalid data.\nDemonstrates temporal confusion in learning systems.\nProves that memory contamination creates impossible outputs.\nExplores non-linear information flow.\n\n💥 PARADOX TYPES:\n\n1️⃣ GRANDFATHER PARADOX:\n   • Timeline B score says \"reduce detail\"\n   • Timeline A reduces detail\n   • BUT: Timeline B was generated from detailed A\n   • Resolution: ???\n\n2️⃣ BOOTSTRAP PARADOX:\n   • An artistic style exists in both timelines\n   • Neither timeline created it\n   • It exists in a causal loop\n   • WHERE DID IT COME FROM?\n\n3️⃣ CONSISTENCY PARADOX:\n   • Changes to past should change future\n   • But future already influenced past\n   • Circular causality\n   • Self-consistency or explosion?\n\n⚡ TO USE:\n1. Set identical seed prompts for both timelines\n2. Use DIFFERENT parameters (one detailed, one simple)\n3. Queue workflow - generates both timelines\n4. Save all outputs (4 images: A0, A1, B0, B1)\n5. Run AGAIN without clearing memory\n6. Watch timelines contaminate each other\n7. Run 3-5 times for full paradox effect\n\n🎨 TIMELINE CONFIGURATIONS:\n\n🔵 Timeline Alpha (\"Past\") Config:\n   • Steps: 30 (moderate)\n   • CFG: 7.0 (balanced)\n   • Sampler: dpmpp_2m (stable)\n   • Philosophy: \"Realistic Evolution\"\n\n🔴 Timeline Beta (\"Future\") Config:\n   • Steps: 45 (high detail)\n   • CFG: 5.5 (creative)\n   • Sampler: euler_ancestral (chaotic)\n   • Philosophy: \"Speculative Alternative\"\n\n⚠️ DANGER ZONES:\n• May produce images that seem \"wrong\" but aren't\n• Causality violations can be conceptually disturbing\n• BRAIN memories become deeply corrupted (intentional)\n• Results become increasingly unpredictable\n• Cannot undo temporal contamination (must reset databases)\n• May create cognitive dissonance in viewer\n• \"Time travel\" aesthetic can be unsettling\n\n🔬 ADVANCED: Triple Timeline\nAdd Timeline Gamma for maximum chaos.\nThree-way contamination creates temporal superposition.\nWhich timeline is \"real\"? All of them. None of them.\n\n💡 PHILOSOPHICAL IMPLICATIONS:\nIf an image is generated from memories of a future that never existed,\nand that future was influenced by a past that was changed retroactively,\nDOES THE IMAGE HAVE AN ORIGIN?\n\nWelcome to non-linear art generation. Time is meaningless. Causality is optional."
+      ],
+      "color": "#9400D3",
+      "bgcolor": "#1a001a"
+    },
+    {
+      "id": 2,
+      "type": "CheckpointLoaderSimple",
+      "pos": [100, 500],
+      "size": [315, 98],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "outputs": [
+        {"name": "MODEL", "type": "MODEL", "links": [1, 2, 3, 4]},
+        {"name": "CLIP", "type": "CLIP", "links": [5, 6, 7, 8, 9]},
+        {"name": "VAE", "type": "VAE", "links": [10, 11, 12, 13]}
+      ],
+      "properties": {},
+      "widgets_values": ["sd_xl_base_1.0.safetensors"]
+    },
+    {
+      "id": 3,
+      "type": "EmptyLatentImage",
+      "pos": [100, 650],
+      "size": [315, 106],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "outputs": [
+        {"name": "LATENT", "type": "LATENT", "links": [14, 15, 16, 17]}
+      ],
+      "properties": {},
+      "widgets_values": [1024, 1024, 1]
+    },
+    {
+      "id": 4,
+      "type": "CLIPTextEncode",
+      "pos": [500, 500],
+      "size": [400, 200],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {"name": "clip", "type": "CLIP", "link": 5}
+      ],
+      "outputs": [
+        {"name": "CONDITIONING", "type": "CONDITIONING", "links": [18, 19, 20, 21]}
+      ],
+      "properties": {},
+      "widgets_values": ["an impossible staircase that loops infinitely, escher-style architecture, paradoxical geometry, shadows that defy physics, crystalline structure, ethereal lighting"],
+      "title": "🔮 SEED PROMPT (Both Timelines)",
+      "color": "#9370DB",
+      "bgcolor": "#2a1a3a"
+    },
+    {
+      "id": 5,
+      "type": "CLIPTextEncode",
+      "pos": [500, 750],
+      "size": [400, 150],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {"name": "clip", "type": "CLIP", "link": 6}
+      ],
+      "outputs": [
+        {"name": "CONDITIONING", "type": "CONDITIONING", "links": [22, 23, 24, 25]}
+      ],
+      "properties": {},
+      "widgets_values": ["blurry, low quality"],
+      "title": "Negative (Universal)"
+    },
+    {
+      "id": 6,
+      "type": "Note",
+      "pos": [100, 800],
+      "size": [350, 200],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "properties": {},
+      "widgets_values": [
+        "⏰ TIMELINE STORAGE ⏰\n\n🔵 BRAIN-A (Timeline Alpha)\nDatabase: timeline_alpha.db\nRole: The \"Past\"\nReceives: Beta's quality scores\nInfluences: Future generations\n\n🔴 BRAIN-B (Timeline Beta)\nDatabase: timeline_beta.db\nRole: The \"Future\"\nReceives: Alpha's patterns\nInfluences: Past generations\n\n💥 CONTAMINATION:\nAfter Run 1: Memories separate\nAfter Run 2: Cross-contamination begins\nAfter Run 3: Paradox emerges\nAfter Run 4+: Temporal chaos\n\nTo reset: Clear both databases"
+      ],
+      "color": "#4B0082",
+      "bgcolor": "#1a0026"
+    },
+    {
+      "id": 7,
+      "type": "BrainsXDEV_PromptBrainSource",
+      "pos": [100, 1050],
+      "size": [280, 110],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "outputs": [
+        {"name": "brain_data", "type": "BRAIN", "links": [26]}
+      ],
+      "properties": {},
+      "widgets_values": ["timeline_alpha", true],
+      "title": "🔵 BRAIN-A: TIMELINE ALPHA",
+      "color": "#0000FF",
+      "bgcolor": "#00001a"
+    },
+    {
+      "id": 8,
+      "type": "BrainsXDEV_PromptBrainSource",
+      "pos": [100, 1200],
+      "size": [280, 110],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "outputs": [
+        {"name": "brain_data", "type": "BRAIN", "links": [27]}
+      ],
+      "properties": {},
+      "widgets_values": ["timeline_beta", true],
+      "title": "🔴 BRAIN-B: TIMELINE BETA",
+      "color": "#FF0000",
+      "bgcolor": "#3a0000"
+    },
+    {
+      "id": 9,
+      "type": "KSampler",
+      "pos": [1000, 500],
+      "size": [315, 262],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {"name": "model", "type": "MODEL", "link": 1},
+        {"name": "positive", "type": "CONDITIONING", "link": 18},
+        {"name": "negative", "type": "CONDITIONING", "link": 22},
+        {"name": "latent_image", "type": "LATENT", "link": 14}
+      ],
+      "outputs": [
+        {"name": "LATENT", "type": "LATENT", "links": [28]}
+      ],
+      "properties": {},
+      "widgets_values": [99999, "fixed", 30, 7.0, "dpmpp_2m", "karras", 1],
+      "title": "🔵 ALPHA-0: Initial State",
+      "color": "#4169E1",
+      "bgcolor": "#1a2a4a"
+    },
+    {
+      "id": 10,
+      "type": "VAEDecode",
+      "pos": [1400, 500],
+      "size": [210, 46],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {"name": "samples", "type": "LATENT", "link": 28},
+        {"name": "vae", "type": "VAE", "link": 10}
+      ],
+      "outputs": [
+        {"name": "IMAGE", "type": "IMAGE", "links": [29, 30]}
+      ],
+      "properties": {}
+    },
+    {
+      "id": 11,
+      "type": "SaveImage",
+      "pos": [1700, 500],
+      "size": [315, 270],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {"name": "images", "type": "IMAGE", "link": 29}
+      ],
+      "properties": {},
+      "widgets_values": ["paradox_alpha0"],
+      "title": "💾 Alpha-0 Output"
+    },
+    {
+      "id": 12,
+      "type": "BrainsXDEV_Florence2Adapter",
+      "pos": [2100, 500],
+      "size": [350, 130],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {"name": "image", "type": "IMAGE", "link": 30}
+      ],
+      "outputs": [
+        {"name": "caption", "type": "STRING", "links": [31]},
+        {"name": "metadata", "type": "DICT", "links": null}
+      ],
+      "properties": {},
+      "widgets_values": ["microsoft/Florence-2-base", "<DETAILED_CAPTION>", 512],
+      "title": "👁️ Analyze Alpha-0"
+    },
+    {
+      "id": 13,
+      "type": "BrainsXDEV_PromptBrainLearnDirect",
+      "pos": [2550, 500],
+      "size": [400, 220],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {"name": "brain_data", "type": "BRAIN", "link": 26},
+        {"name": "prompt", "type": "STRING", "link": 31}
+      ],
+      "outputs": [
+        {"name": "brain_data", "type": "BRAIN", "links": [32]}
+      ],
+      "properties": {},
+      "widgets_values": ["", 1.5, "none", true, 10],
+      "title": "📚 Learn: Timeline Alpha"
+    },
+    {
+      "id": 14,
+      "type": "BrainsXDEV_PromptBrainSuggestDirect",
+      "pos": [3050, 500],
+      "size": [450, 280],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {"name": "brain_data", "type": "BRAIN", "link": 32},
+        {"name": "base_prompt", "type": "STRING", "link": null}
+      ],
+      "outputs": [
+        {"name": "brain_data", "type": "BRAIN", "links": null},
+        {"name": "suggestion_1", "type": "STRING", "links": [33]},
+        {"name": "suggestion_2", "type": "STRING", "links": null},
+        {"name": "suggestion_3", "type": "STRING", "links": null}
+      ],
+      "properties": {},
+      "widgets_values": ["evolved state with past knowledge", 3, 1.0, "none", 0.0],
+      "title": "🔮 Suggest: Alpha Evolution"
+    },
+    {
+      "id": 15,
+      "type": "CLIPTextEncode",
+      "pos": [3600, 500],
+      "size": [400, 200],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {"name": "clip", "type": "CLIP", "link": 7},
+        {"name": "text", "type": "STRING", "link": 33}
+      ],
+      "outputs": [
+        {"name": "CONDITIONING", "type": "CONDITIONING", "links": [34]}
+      ],
+      "properties": {},
+      "widgets_values": [""],
+      "title": "Encode: Alpha-1"
+    },
+    {
+      "id": 16,
+      "type": "KSampler",
+      "pos": [4100, 500],
+      "size": [315, 262],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [
+        {"name": "model", "type": "MODEL", "link": 2},
+        {"name": "positive", "type": "CONDITIONING", "link": 34},
+        {"name": "negative", "type": "CONDITIONING", "link": 23},
+        {"name": "latent_image", "type": "LATENT", "link": 15}
+      ],
+      "outputs": [
+        {"name": "LATENT", "type": "LATENT", "links": [35]}
+      ],
+      "properties": {},
+      "widgets_values": [99999, "fixed", 30, 7.0, "dpmpp_2m", "karras", 1],
+      "title": "🔵 ALPHA-1: Evolved (Future-Influenced)",
+      "color": "#00BFFF",
+      "bgcolor": "#003a4a"
+    },
+    {
+      "id": 17,
+      "type": "VAEDecode",
+      "pos": [4500, 500],
+      "size": [210, 46],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [
+        {"name": "samples", "type": "LATENT", "link": 35},
+        {"name": "vae", "type": "VAE", "link": 11}
+      ],
+      "outputs": [
+        {"name": "IMAGE", "type": "IMAGE", "links": [36]}
+      ],
+      "properties": {}
+    },
+    {
+      "id": 18,
+      "type": "SaveImage",
+      "pos": [4800, 500],
+      "size": [315, 270],
+      "flags": {},
+      "order": 17,
+      "mode": 0,
+      "inputs": [
+        {"name": "images", "type": "IMAGE", "link": 36}
+      ],
+      "properties": {},
+      "widgets_values": ["paradox_alpha1_ECHO"],
+      "title": "💾 Alpha-1: Echo of Future"
+    },
+    {
+      "id": 19,
+      "type": "KSampler",
+      "pos": [1000, 1000],
+      "size": [315, 262],
+      "flags": {},
+      "order": 18,
+      "mode": 0,
+      "inputs": [
+        {"name": "model", "type": "MODEL", "link": 3},
+        {"name": "positive", "type": "CONDITIONING", "link": 19},
+        {"name": "negative", "type": "CONDITIONING", "link": 24},
+        {"name": "latent_image", "type": "LATENT", "link": 16}
+      ],
+      "outputs": [
+        {"name": "LATENT", "type": "LATENT", "links": [37]}
+      ],
+      "properties": {},
+      "widgets_values": [99999, "fixed", 45, 5.5, "euler_ancestral", "exponential", 1],
+      "title": "🔴 BETA-0: Alternative Future",
+      "color": "#DC143C",
+      "bgcolor": "#3a0010"
+    },
+    {
+      "id": 20,
+      "type": "VAEDecode",
+      "pos": [1400, 1000],
+      "size": [210, 46],
+      "flags": {},
+      "order": 19,
+      "mode": 0,
+      "inputs": [
+        {"name": "samples", "type": "LATENT", "link": 37},
+        {"name": "vae", "type": "VAE", "link": 12}
+      ],
+      "outputs": [
+        {"name": "IMAGE", "type": "IMAGE", "links": [38, 39]}
+      ],
+      "properties": {}
+    },
+    {
+      "id": 21,
+      "type": "SaveImage",
+      "pos": [1700, 1000],
+      "size": [315, 270],
+      "flags": {},
+      "order": 20,
+      "mode": 0,
+      "inputs": [
+        {"name": "images", "type": "IMAGE", "link": 38}
+      ],
+      "properties": {},
+      "widgets_values": ["paradox_beta0"],
+      "title": "💾 Beta-0 Output"
+    },
+    {
+      "id": 22,
+      "type": "BrainsXDEV_Florence2Adapter",
+      "pos": [2100, 1000],
+      "size": [350, 130],
+      "flags": {},
+      "order": 21,
+      "mode": 0,
+      "inputs": [
+        {"name": "image", "type": "IMAGE", "link": 39}
+      ],
+      "outputs": [
+        {"name": "caption", "type": "STRING", "links": [40]},
+        {"name": "metadata", "type": "DICT", "links": null}
+      ],
+      "properties": {},
+      "widgets_values": ["microsoft/Florence-2-base", "<DETAILED_CAPTION>", 512],
+      "title": "👁️ Analyze Beta-0"
+    },
+    {
+      "id": 23,
+      "type": "BrainsXDEV_PromptBrainLearnDirect",
+      "pos": [2550, 1000],
+      "size": [400, 220],
+      "flags": {},
+      "order": 22,
+      "mode": 0,
+      "inputs": [
+        {"name": "brain_data", "type": "BRAIN", "link": 27},
+        {"name": "prompt", "type": "STRING", "link": 40}
+      ],
+      "outputs": [
+        {"name": "brain_data", "type": "BRAIN", "links": [41]}
+      ],
+      "properties": {},
+      "widgets_values": ["", 1.8, "none", true, 10],
+      "title": "📚 Learn: Timeline Beta"
+    },
+    {
+      "id": 24,
+      "type": "BrainsXDEV_PromptBrainSuggestDirect",
+      "pos": [3050, 1000],
+      "size": [450, 280],
+      "flags": {},
+      "order": 23,
+      "mode": 0,
+      "inputs": [
+        {"name": "brain_data", "type": "BRAIN", "link": 41},
+        {"name": "base_prompt", "type": "STRING", "link": null}
+      ],
+      "outputs": [
+        {"name": "brain_data", "type": "BRAIN", "links": null},
+        {"name": "suggestion_1", "type": "STRING", "links": [42]},
+        {"name": "suggestion_2", "type": "STRING", "links": null},
+        {"name": "suggestion_3", "type": "STRING", "links": null}
+      ],
+      "properties": {},
+      "widgets_values": ["speculative alternative future", 3, 1.2, "none", 0.0],
+      "title": "🔮 Suggest: Beta Evolution"
+    },
+    {
+      "id": 25,
+      "type": "CLIPTextEncode",
+      "pos": [3600, 1000],
+      "size": [400, 200],
+      "flags": {},
+      "order": 24,
+      "mode": 0,
+      "inputs": [
+        {"name": "clip", "type": "CLIP", "link": 8},
+        {"name": "text", "type": "STRING", "link": 42}
+      ],
+      "outputs": [
+        {"name": "CONDITIONING", "type": "CONDITIONING", "links": [43]}
+      ],
+      "properties": {},
+      "widgets_values": [""],
+      "title": "Encode: Beta-1"
+    },
+    {
+      "id": 26,
+      "type": "KSampler",
+      "pos": [4100, 1000],
+      "size": [315, 262],
+      "flags": {},
+      "order": 25,
+      "mode": 0,
+      "inputs": [
+        {"name": "model", "type": "MODEL", "link": 4},
+        {"name": "positive", "type": "CONDITIONING", "link": 43},
+        {"name": "negative", "type": "CONDITIONING", "link": 25},
+        {"name": "latent_image", "type": "LATENT", "link": 17}
+      ],
+      "outputs": [
+        {"name": "LATENT", "type": "LATENT", "links": [44]}
+      ],
+      "properties": {},
+      "widgets_values": [99999, "fixed", 45, 5.5, "euler_ancestral", "exponential", 1],
+      "title": "🔴 BETA-1: Evolved (Past-Influenced)",
+      "color": "#FF6347",
+      "bgcolor": "#3a1010"
+    },
+    {
+      "id": 27,
+      "type": "VAEDecode",
+      "pos": [4500, 1000],
+      "size": [210, 46],
+      "flags": {},
+      "order": 26,
+      "mode": 0,
+      "inputs": [
+        {"name": "samples", "type": "LATENT", "link": 44},
+        {"name": "vae", "type": "VAE", "link": 13}
+      ],
+      "outputs": [
+        {"name": "IMAGE", "type": "IMAGE", "links": [45]}
+      ],
+      "properties": {}
+    },
+    {
+      "id": 28,
+      "type": "SaveImage",
+      "pos": [4800, 1000],
+      "size": [315, 270],
+      "flags": {},
+      "order": 27,
+      "mode": 0,
+      "inputs": [
+        {"name": "images", "type": "IMAGE", "link": 45}
+      ],
+      "properties": {},
+      "widgets_values": ["paradox_beta1_ECHO"],
+      "title": "💾 Beta-1: Echo of Past"
+    }
+  ],
+  "links": [
+    [1, 2, 0, 9, 0, "MODEL"],
+    [2, 2, 0, 16, 0, "MODEL"],
+    [3, 2, 0, 19, 0, "MODEL"],
+    [4, 2, 0, 26, 0, "MODEL"],
+    [5, 2, 1, 4, 0, "CLIP"],
+    [6, 2, 1, 5, 0, "CLIP"],
+    [7, 2, 1, 15, 0, "CLIP"],
+    [8, 2, 1, 25, 0, "CLIP"],
+    [9, 2, 1, null, null, null],
+    [10, 2, 2, 10, 1, "VAE"],
+    [11, 2, 2, 17, 1, "VAE"],
+    [12, 2, 2, 20, 1, "VAE"],
+    [13, 2, 2, 27, 1, "VAE"],
+    [14, 3, 0, 9, 3, "LATENT"],
+    [15, 3, 0, 16, 3, "LATENT"],
+    [16, 3, 0, 19, 3, "LATENT"],
+    [17, 3, 0, 26, 3, "LATENT"],
+    [18, 4, 0, 9, 1, "CONDITIONING"],
+    [19, 4, 0, 19, 1, "CONDITIONING"],
+    [20, 4, 0, null, null, null],
+    [21, 4, 0, null, null, null],
+    [22, 5, 0, 9, 2, "CONDITIONING"],
+    [23, 5, 0, 16, 2, "CONDITIONING"],
+    [24, 5, 0, 19, 2, "CONDITIONING"],
+    [25, 5, 0, 26, 2, "CONDITIONING"],
+    [26, 7, 0, 13, 0, "BRAIN"],
+    [27, 8, 0, 23, 0, "BRAIN"],
+    [28, 9, 0, 10, 0, "LATENT"],
+    [29, 10, 0, 11, 0, "IMAGE"],
+    [30, 10, 0, 12, 0, "IMAGE"],
+    [31, 12, 0, 13, 1, "STRING"],
+    [32, 13, 0, 14, 0, "BRAIN"],
+    [33, 14, 1, 15, 1, "STRING"],
+    [34, 15, 0, 16, 1, "CONDITIONING"],
+    [35, 16, 0, 17, 0, "LATENT"],
+    [36, 17, 0, 18, 0, "IMAGE"],
+    [37, 19, 0, 20, 0, "LATENT"],
+    [38, 20, 0, 21, 0, "IMAGE"],
+    [39, 20, 0, 22, 0, "IMAGE"],
+    [40, 22, 0, 23, 1, "STRING"],
+    [41, 23, 0, 24, 0, "BRAIN"],
+    [42, 24, 1, 25, 1, "STRING"],
+    [43, 25, 0, 26, 1, "CONDITIONING"],
+    [44, 26, 0, 27, 0, "LATENT"],
+    [45, 27, 0, 28, 0, "IMAGE"]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {},
+  "version": 0.4
+}

@@ -1,0 +1,118 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# ComfyUI Specific
+models/
+# Keep model directories but ignore model files
+!models/.gitkeep
+models/*/*.onnx
+models/*/*.safetensors
+models/*/*.ckpt
+models/*/*.pt
+models/*/*.pth
+models/*/*.bin
+
+# BRAIN Databases (user-generated data)
+*.db
+*.sqlite
+*.sqlite3
+promptbrain.db
+brain_data/
+
+# Generated Images & Output
+output/
+temp/
+tmp/
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Development & Debug
+not-working-debug/
+debug/
+scratch/
+test_output/
+
+# Old/Deprecated Files
+xdev_hello_node.py
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# Documentation Build
+docs/_build/
+site/
+
+# Backup Files
+*.bak
+*.backup
+*.old
+*~
+
+# Environment
+.env
+.env.local
+
+# Windows
+$RECYCLE.BIN/
+ehthumbs.db
+ehthumbs_vista.db
+
+# MacOS
+.AppleDouble
+.LSOverride
+._*
+
+# Linux
+.directory
+.Trash-*

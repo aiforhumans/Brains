@@ -1,0 +1,209 @@
+{
+  "last_node_id": 8,
+  "last_link_id": 6,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "LoadImage",
+      "pos": [100, 100],
+      "size": [220, 320],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [1]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {},
+      "widgets_values": ["example.png", "image"],
+      "title": "📷 Load Image"
+    },
+    {
+      "id": 2,
+      "type": "BrainsXDEV_MemoryWrite",
+      "pos": [400, 100],
+      "size": [350, 150],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "status",
+          "type": "STRING",
+          "links": [2]
+        },
+        {
+          "name": "row_id",
+          "type": "INT",
+          "links": [3]
+        }
+      ],
+      "properties": {},
+      "widgets_values": [
+        "test caption for memory storage",
+        "tag1, tag2, tag3",
+        0.85
+      ],
+      "title": "💾 Write to Memory"
+    },
+    {
+      "id": 3,
+      "type": "ShowText|pysssss",
+      "pos": [800, 100],
+      "size": [400, 120],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 2
+        }
+      ],
+      "outputs": [],
+      "properties": {},
+      "title": "✅ Write Status"
+    },
+    {
+      "id": 4,
+      "type": "Show any [Crystools]",
+      "pos": [800, 270],
+      "size": [400, 150],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "any_value",
+          "type": "*",
+          "link": 3
+        }
+      ],
+      "outputs": [],
+      "properties": {},
+      "title": "🔢 Row ID"
+    },
+    {
+      "id": 5,
+      "type": "BrainsXDEV_MemoryRead",
+      "pos": [400, 320],
+      "size": [350, 130],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "captions",
+          "type": "LIST",
+          "links": [4]
+        },
+        {
+          "name": "raw_rows",
+          "type": "DICT",
+          "links": [5]
+        }
+      ],
+      "properties": {},
+      "widgets_values": [
+        10,
+        0,
+        ""
+      ],
+      "title": "📖 Read from Memory"
+    },
+    {
+      "id": 6,
+      "type": "ShowText|pysssss",
+      "pos": [800, 490],
+      "size": [400, 200],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 6
+        }
+      ],
+      "outputs": [],
+      "properties": {},
+      "title": "📄 Captions List"
+    },
+    {
+      "id": 7,
+      "type": "Show any [Crystools]",
+      "pos": [1250, 100],
+      "size": [450, 590],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "any_value",
+          "type": "*",
+          "link": 5
+        }
+      ],
+      "outputs": [],
+      "properties": {},
+      "title": "🗄️ Database Rows Inspector"
+    },
+    {
+      "id": 8,
+      "type": "Note",
+      "pos": [100, 500],
+      "size": [650, 190],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "properties": {},
+      "widgets_values": [
+        "💾 Memory Read/Write Operations\n\n📝 Write Node:\n• Stores image, caption, tags, score\n• Creates SQLite DB: promptbrain.db\n• Returns status and row ID\n• Automatic timestamp\n\n📖 Read Node:\n• Retrieves stored memories\n• limit: Max rows to return (0 = all)\n• min_score: Filter by quality score\n• tag_filter: Filter by tags (comma-separated)\n• Returns list of captions + raw data\n\n🔍 Inspector shows full row data:\n• id, caption, tags, score, timestamp\n• image_path, metadata\n\n💡 Tips:\n• DB persists between sessions\n• Use tag filters for organization\n• Score filter for quality control\n• Captions list for prompt building"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    }
+  ],
+  "links": [
+    [1, 1, 0, 2, 0, "IMAGE"],
+    [2, 2, 0, 3, 0, "STRING"],
+    [3, 2, 1, 4, 0, "*"],
+    [4, 5, 0, 6, 0, "LIST"],
+    [5, 5, 1, 7, 0, "*"],
+    [6, 5, 0, 6, 0, "*"]
+  ],
+  "groups": [
+    {
+      "title": "💾 Memory Read/Write - SQLite Database Operations",
+      "bounding": [70, 30, 1660, 690],
+      "color": "#3f789e",
+      "font_size": 24
+    }
+  ],
+  "config": {},
+  "extra": {
+    "workspace_info": {
+      "id": "memory-read-write",
+      "version": "1.0.0",
+      "description": "Template for BrainsXDEV_MemoryRead and BrainsXDEV_MemoryWrite - SQLite database operations for prompt storage"
+    }
+  },
+  "version": 0.4
+}

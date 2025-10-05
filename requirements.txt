@@ -1,0 +1,16 @@
+# Brains-XDEV requirements file
+# Core dependencies
+numpy>=1.21.0
+pillow>=8.0.0
+
+# Optional AI/ML dependencies (install as needed)
+# torch>=1.13.0
+# transformers>=4.40.0
+# onnxruntime
+
+# Utility dependencies (for imported tools)
+# psutil  # for memory cleanup utilities
+
+# Development dependencies
+# pytest
+# websockets

@@ -1,0 +1,400 @@
+{
+  "last_node_id": 18,
+  "last_link_id": 23,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "Note",
+      "pos": [50, 50],
+      "size": [1800, 280],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "properties": {},
+      "widgets_values": [
+        "🎨 STYLE TRANSFER LEARNING - Brains-XDEV Advanced\n\n✨ Purpose: Learn artistic style from reference images and apply to new generations\n\n📋 Workflow Stages:\n1. REFERENCE ANALYSIS - Load example images of desired style\n2. MULTI-AI EXTRACTION - Florence2 (descriptions) + WD14 (tags) for comprehensive analysis\n3. BRAIN LEARNING - Store style patterns, composition, color, mood\n4. STYLE SYNTHESIS - Combine learned patterns into coherent style description\n5. GENERATION - Create new images in learned style\n6. VALIDATION - Compare output to reference style\n\n🔄 How It Works:\n1. Load 3-5 reference images of target style\n2. AI adapters extract multiple perspectives:\n   • Florence2: Natural language descriptions\n   • WD14: Detailed tags (artist, medium, composition)\n3. BRAIN learns correlations between tags\n4. Suggest node generates style-aware prompts\n5. Generate new content in learned style\n\n🎯 Use Cases:\n• Learn from favorite artist's work\n• Replicate photography style\n• Match existing game/book aesthetic\n• Create consistent series\n• Adapt to client preferences\n\n💡 Tips:\n• Use 3-5 similar reference images\n• Higher quality references = better learning\n• Mix Florence2 + WD14 for best coverage\n• Adjust learning_rate for style strength\n• Compare outputs to references\n\n🔮 Advanced:\n• Add more reference images for robustness\n• Use different style categories\n• Blend multiple learned styles\n• Track style consistency metrics"
+      ],
+      "color": "#222",
+      "bgcolor": "#000"
+    },
+    {
+      "id": 2,
+      "type": "LoadImage",
+      "pos": [100, 400],
+      "size": [220, 320],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "outputs": [
+        {"name": "IMAGE", "type": "IMAGE", "links": [1, 2]},
+        {"name": "MASK", "type": "MASK", "links": null}
+      ],
+      "properties": {},
+      "widgets_values": ["style_reference_1.png", "image"],
+      "title": "📷 Reference 1"
+    },
+    {
+      "id": 3,
+      "type": "LoadImage",
+      "pos": [100, 770],
+      "size": [220, 320],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "outputs": [
+        {"name": "IMAGE", "type": "IMAGE", "links": [3, 4]},
+        {"name": "MASK", "type": "MASK", "links": null}
+      ],
+      "properties": {},
+      "widgets_values": ["style_reference_2.png", "image"],
+      "title": "📷 Reference 2"
+    },
+    {
+      "id": 4,
+      "type": "LoadImage",
+      "pos": [100, 1140],
+      "size": [220, 320],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "outputs": [
+        {"name": "IMAGE", "type": "IMAGE", "links": [5, 6]},
+        {"name": "MASK", "type": "MASK", "links": null}
+      ],
+      "properties": {},
+      "widgets_values": ["style_reference_3.png", "image"],
+      "title": "📷 Reference 3"
+    },
+    {
+      "id": 5,
+      "type": "BrainsXDEV_Florence2Adapter",
+      "pos": [400, 400],
+      "size": [350, 130],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [{"name": "image", "type": "IMAGE", "link": 1}],
+      "outputs": [
+        {"name": "caption", "type": "STRING", "links": [7]},
+        {"name": "metadata", "type": "DICT", "links": null}
+      ],
+      "properties": {},
+      "widgets_values": ["microsoft/Florence-2-base", "<MORE_DETAILED_CAPTION>", 256],
+      "title": "🤖 Florence2 Ref1"
+    },
+    {
+      "id": 6,
+      "type": "BrainsXDEV_Florence2Adapter",
+      "pos": [400, 770],
+      "size": [350, 130],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [{"name": "image", "type": "IMAGE", "link": 3}],
+      "outputs": [
+        {"name": "caption", "type": "STRING", "links": [8]},
+        {"name": "metadata", "type": "DICT", "links": null}
+      ],
+      "properties": {},
+      "widgets_values": ["microsoft/Florence-2-base", "<MORE_DETAILED_CAPTION>", 256],
+      "title": "🤖 Florence2 Ref2"
+    },
+    {
+      "id": 7,
+      "type": "BrainsXDEV_Florence2Adapter",
+      "pos": [400, 1140],
+      "size": [350, 130],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [{"name": "image", "type": "IMAGE", "link": 5}],
+      "outputs": [
+        {"name": "caption", "type": "STRING", "links": [9]},
+        {"name": "metadata", "type": "DICT", "links": null}
+      ],
+      "properties": {},
+      "widgets_values": ["microsoft/Florence-2-base", "<MORE_DETAILED_CAPTION>", 256],
+      "title": "🤖 Florence2 Ref3"
+    },
+    {
+      "id": 8,
+      "type": "BrainsXDEV_PromptBrainQualityScore",
+      "pos": [800, 400],
+      "size": [350, 310],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {"name": "image", "type": "IMAGE", "link": 2},
+        {"name": "caption", "type": "STRING", "link": 7}
+      ],
+      "outputs": [
+        {"name": "score", "type": "FLOAT", "links": [10]},
+        {"name": "analysis", "type": "STRING", "links": null},
+        {"name": "grade", "type": "STRING", "links": null},
+        {"name": "metadata", "type": "DICT", "links": null}
+      ],
+      "properties": {},
+      "widgets_values": ["", "artistic_merit", "detailed", "artistic", 0, 0, true, true, true, true],
+      "title": "🎯 Analyze Style Ref1"
+    },
+    {
+      "id": 9,
+      "type": "BrainsXDEV_PromptBrainQualityScore",
+      "pos": [800, 770],
+      "size": [350, 310],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {"name": "image", "type": "IMAGE", "link": 4},
+        {"name": "caption", "type": "STRING", "link": 8}
+      ],
+      "outputs": [
+        {"name": "score", "type": "FLOAT", "links": [11]},
+        {"name": "analysis", "type": "STRING", "links": null},
+        {"name": "grade", "type": "STRING", "links": null},
+        {"name": "metadata", "type": "DICT", "links": null}
+      ],
+      "properties": {},
+      "widgets_values": ["", "artistic_merit", "detailed", "artistic", 0, 0, true, true, true, true],
+      "title": "🎯 Analyze Style Ref2"
+    },
+    {
+      "id": 10,
+      "type": "BrainsXDEV_PromptBrainQualityScore",
+      "pos": [800, 1140],
+      "size": [350, 310],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {"name": "image", "type": "IMAGE", "link": 6},
+        {"name": "caption", "type": "STRING", "link": 9}
+      ],
+      "outputs": [
+        {"name": "score", "type": "FLOAT", "links": [12]},
+        {"name": "analysis", "type": "STRING", "links": null},
+        {"name": "grade", "type": "STRING", "links": null},
+        {"name": "metadata", "type": "DICT", "links": null}
+      ],
+      "properties": {},
+      "widgets_values": ["", "artistic_merit", "detailed", "artistic", 0, 0, true, true, true, true],
+      "title": "🎯 Analyze Style Ref3"
+    },
+    {
+      "id": 11,
+      "type": "BrainsXDEV_PromptBrainSource",
+      "pos": [1200, 400],
+      "size": [280, 110],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "outputs": [{"name": "brain_data", "type": "BRAIN", "links": [13]}],
+      "properties": {},
+      "widgets_values": ["<auto_find>", false, true],
+      "title": "🧠 BRAIN Source"
+    },
+    {
+      "id": 12,
+      "type": "BrainsXDEV_PromptBrainLearnDirect",
+      "pos": [1200, 550],
+      "size": [400, 210],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {"name": "brain_data", "type": "BRAIN", "link": 13},
+        {"name": "prompt", "type": "STRING", "link": 21},
+        {"name": "score", "type": "FLOAT", "link": 10}
+      ],
+      "outputs": [
+        {"name": "brain_data", "type": "BRAIN", "links": [14]},
+        {"name": "status", "type": "STRING", "links": null}
+      ],
+      "properties": {},
+      "widgets_values": ["", 0.8, "artistic", "color", 2.0],
+      "title": "📚 Learn Style Ref1"
+    },
+    {
+      "id": 13,
+      "type": "BrainsXDEV_PromptBrainLearnDirect",
+      "pos": [1200, 810],
+      "size": [400, 210],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {"name": "brain_data", "type": "BRAIN", "link": 14},
+        {"name": "prompt", "type": "STRING", "link": 22},
+        {"name": "score", "type": "FLOAT", "link": 11}
+      ],
+      "outputs": [
+        {"name": "brain_data", "type": "BRAIN", "links": [15]},
+        {"name": "status", "type": "STRING", "links": null}
+      ],
+      "properties": {},
+      "widgets_values": ["", 0.8, "artistic", "lighting", 2.0],
+      "title": "📚 Learn Style Ref2"
+    },
+    {
+      "id": 14,
+      "type": "BrainsXDEV_PromptBrainLearnDirect",
+      "pos": [1200, 1070],
+      "size": [400, 210],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {"name": "brain_data", "type": "BRAIN", "link": 15},
+        {"name": "prompt", "type": "STRING", "link": 23},
+        {"name": "score", "type": "FLOAT", "link": 12}
+      ],
+      "outputs": [
+        {"name": "brain_data", "type": "BRAIN", "links": [16]},
+        {"name": "status", "type": "STRING", "links": [17]}
+      ],
+      "properties": {},
+      "widgets_values": ["", 0.8, "artistic", "composition", 2.0],
+      "title": "📚 Learn Style Ref3"
+    },
+    {
+      "id": 15,
+      "type": "BrainsXDEV_PromptBrainSuggestDirect",
+      "pos": [1200, 1330],
+      "size": [400, 210],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {"name": "brain_data", "type": "BRAIN", "link": 16},
+        {"name": "base_prompt", "type": "STRING", "widget": {"name": "base_prompt"}}
+      ],
+      "outputs": [
+        {"name": "brain_data", "type": "BRAIN", "links": null},
+        {"name": "suggestion_1", "type": "STRING", "links": [18]},
+        {"name": "suggestion_2", "type": "STRING", "links": [19]},
+        {"name": "suggestion_3", "type": "STRING", "links": [20]}
+      ],
+      "properties": {},
+      "widgets_values": ["portrait of a warrior", 3, 1.2, "artistic", 0.6],
+      "title": "💡 Generate Style Prompts"
+    },
+    {
+      "id": 16,
+      "type": "ShowText|pysssss",
+      "pos": [1650, 550],
+      "size": [400, 150],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [{"name": "text", "type": "STRING", "link": 17}],
+      "properties": {},
+      "title": "✅ Learning Status"
+    },
+    {
+      "id": 17,
+      "type": "ShowText|pysssss",
+      "pos": [1650, 1330],
+      "size": [550, 150],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [{"name": "text", "type": "STRING", "link": 18}],
+      "properties": {},
+      "title": "🎨 Style Prompt 1"
+    },
+    {
+      "id": 18,
+      "type": "ShowText|pysssss",
+      "pos": [1650, 1530],
+      "size": [550, 150],
+      "flags": {},
+      "order": 17,
+      "mode": 0,
+      "inputs": [{"name": "text", "type": "STRING", "link": 19}],
+      "properties": {},
+      "title": "🎨 Style Prompt 2"
+    },
+    {
+      "id": 19,
+      "type": "Note",
+      "pos": [2250, 400],
+      "size": [450, 900],
+      "flags": {},
+      "order": 18,
+      "mode": 0,
+      "properties": {},
+      "widgets_values": [
+        "🎨 STYLE TRANSFER GUIDE\n\n📋 Setup:\n1. Collect 3-5 reference images\n2. All references should share target style\n3. High quality sources work best\n4. Place in ComfyUI/input folder\n\n⚡ Execution:\n1. Load reference images (nodes 2-4)\n2. Queue workflow\n3. AI extracts style patterns\n4. BRAIN learns correlations\n5. Suggestions generated\n\n🎯 Style Analysis:\n• Florence2: Descriptions\n  - Mood and atmosphere\n  - Subject matter\n  - Composition notes\n\n• Quality Score: Metrics\n  - Artistic quality\n  - Technical aspects\n  - Color and lighting\n\n📚 Learning Process:\n• Node 12: Color patterns\n• Node 13: Lighting style\n• Node 14: Composition\n• High learning_rate (2.0) = strong style\n\n💡 Using Results:\n1. Copy generated prompts\n2. Use in generation workflow\n3. Adjust base_prompt for variety\n4. Compare outputs to references\n5. Iterate if needed\n\n🔧 Tuning:\n• More references = more robust\n• learning_rate: 1.5-2.5 for style\n• creativity: 1.0-1.5 for variety\n• quality_threshold: 0.5-0.7\n\n🎯 Best Practices:\n• Use consistent references\n• Focus on one style aspect\n• Test with simple prompts first\n• Build complexity gradually\n• Save successful combinations\n\n⚠️ Notes:\n• WD14 node disabled (optional)\n• Add if you need tag-based learning\n• Combine with Florence2 for best results\n• Florence2 provides context\n• WD14 provides specific tags"
+      ],
+      "color": "#233",
+      "bgcolor": "#355"
+    }
+  ],
+  "links": [
+    [1, 2, 0, 5, 0, "IMAGE"],
+    [2, 2, 0, 8, 0, "IMAGE"],
+    [3, 3, 0, 6, 0, "IMAGE"],
+    [4, 3, 0, 9, 0, "IMAGE"],
+    [5, 4, 0, 7, 0, "IMAGE"],
+    [6, 4, 0, 10, 0, "IMAGE"],
+    [7, 5, 0, 8, 1, "STRING"],
+    [8, 6, 0, 9, 1, "STRING"],
+    [9, 7, 0, 10, 1, "STRING"],
+    [10, 8, 0, 12, 2, "FLOAT"],
+    [11, 9, 0, 13, 2, "FLOAT"],
+    [12, 10, 0, 14, 2, "FLOAT"],
+    [13, 11, 0, 12, 0, "BRAIN"],
+    [14, 12, 0, 13, 0, "BRAIN"],
+    [15, 13, 0, 14, 0, "BRAIN"],
+    [16, 14, 0, 15, 0, "BRAIN"],
+    [17, 14, 1, 16, 0, "STRING"],
+    [18, 15, 1, 17, 0, "STRING"],
+    [19, 15, 2, 18, 0, "STRING"],
+    [21, 5, 0, 12, 1, "STRING"],
+    [22, 6, 0, 13, 1, "STRING"],
+    [23, 7, 0, 14, 1, "STRING"]
+  ],
+  "groups": [
+    {
+      "title": "📷 1. REFERENCE IMAGES",
+      "bounding": [70, 370, 280, 1120],
+      "color": "#3f789e",
+      "font_size": 24
+    },
+    {
+      "title": "🤖 2. AI ANALYSIS",
+      "bounding": [370, 370, 410, 1120],
+      "color": "#a1309b",
+      "font_size": 24
+    },
+    {
+      "title": "🎯 3. QUALITY METRICS",
+      "bounding": [770, 370, 410, 1120],
+      "color": "#88a",
+      "font_size": 24
+    },
+    {
+      "title": "📚 4. STYLE LEARNING",
+      "bounding": [1170, 370, 460, 950],
+      "color": "#8a8",
+      "font_size": 24
+    },
+    {
+      "title": "💡 5. STYLE GENERATION",
+      "bounding": [1170, 1300, 1060, 420],
+      "color": "#a85",
+      "font_size": 24
+    }
+  ],
+  "config": {},
+  "extra": {
+    "workspace_info": {
+      "id": "style-transfer-learning",
+      "version": "1.0.0",
+      "description": "Learn artistic style from references and generate style-aware prompts"
+    }
+  },
+  "version": 0.4
+}

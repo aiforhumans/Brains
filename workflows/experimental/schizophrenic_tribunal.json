@@ -1,0 +1,709 @@
+{
+  "last_node_id": 35,
+  "last_link_id": 48,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "Note",
+      "pos": [50, 50],
+      "size": [2200, 380],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "properties": {},
+      "widgets_values": [
+        "🎭 SCHIZOPHRENIC TRIBUNAL - Multi-Personality AI Competition 🎭\n\n⚠️ EXPERIMENTAL: Three conflicting AI personalities compete for artistic dominance ⚠️\n\n🧠 THE THREE PERSONALITIES:\n\n1️⃣ THE MAXIMALIST (Brain A) - 'More is More'\n   Philosophy: Complexity, detail, ornamentation, baroque excess\n   Learns: High tag density, intricate patterns, layered composition\n   Goals: Maximum visual information, overwhelming detail\n   Scoring: Rewards complexity, punishes simplicity\n   Aesthetic: Rococo, cyberpunk, maximalist art, horror vacui\n\n2️⃣ THE MINIMALIST (Brain B) - 'Less is More'\n   Philosophy: Simplicity, negative space, zen aesthetic\n   Learns: Clean lines, single subjects, empty backgrounds\n   Goals: Minimal elements, maximum impact\n   Scoring: Rewards restraint, punishes clutter\n   Aesthetic: Japanese minimalism, brutalism, modernist, liminal spaces\n\n3️⃣ THE SURREALIST (Brain C) - 'Nothing Makes Sense'\n   Philosophy: Contradiction, impossible geometry, dream logic\n   Learns: Incompatible elements, scale violations, paradoxes\n   Goals: Maximum cognitive dissonance, visual impossibility\n   Scoring: Rewards confusion, punishes coherence\n   Aesthetic: Dali, Escher, cosmic horror, fever dreams\n\n⚔️ COMPETITION MECHANICS:\n1. All 3 BRAINs analyze the SAME source image\n2. Each interprets through their philosophical lens\n3. Each generates a prompt reflecting their bias\n4. 3 images generated in parallel\n5. Quality scores compete (different criteria each)\n6. WINNER gets highest score\n7. Loser's memories get \"corrupted\" by winner's patterns\n\n🔄 MEMORY WARFARE:\n• Winners influence losers (cross-contamination)\n• Personalities gradually merge OR conflict escalates\n• Eventually creates hybrid aesthetics:\n  - Minimal + Surreal = Liminal dream spaces\n  - Maximal + Minimal = Structured chaos\n  - Surreal + Maximal = Baroque nightmares\n\n🎯 EXPECTED OUTCOMES:\nRound 1: Clear personality differences\nRound 2: Boundaries blur, conflict emerges\nRound 3: Identity crisis - chimera aesthetics\nRound 4: New hybrid personality emerges OR total war\n\n💥 SABOTAGE MODE (Optional):\nManually swap BRAIN memories between personalities!\n• Give Minimalist the Maximalist's memories\n• Watch cognitive dissonance explode\n• Creates artistic schizophrenia\n\n🧪 SCIENTIFIC PURPOSE:\nTests multi-agent competition in aesthetic space.\nDemonstrates emergence of hybrid styles through conflict.\nProves that opposing artistic philosophies can merge or annihilate.\n\n⚡ TO USE:\n1. Load interesting source image (complex enough for all 3 to interpret)\n2. Queue workflow - generates 3 competing visions\n3. Compare outputs - spot personality traits\n4. Run multiple times - watch personalities evolve/corrupt\n5. Optional: Manually sabotage memories for chaos\n\n🎨 RECOMMENDED SOURCE IMAGES:\n• Complex scenes (city, forest, crowd)\n• Ambiguous subjects (abstract, surreal)\n• Rich in detail (many interpretation angles)\n• Emotionally charged (faces, dramatic lighting)\n\n⚠️ DANGER ZONES:\n• Personalities may completely merge (loss of diversity)\n• May create impossible-to-resolve aesthetic conflicts\n• Results increasingly unstable over iterations\n• Could generate disturbing hybrid imagery\n• Memory corruption is PERMANENT (requires reset)\n\n🏆 VOTING SYSTEM:\nScores determine winner, but YOU can override:\n• Manually pick winner despite scores\n• Force personality mergers\n• Inject chaos by randomizing winner\n• Create democratic vs autocratic outcomes"
+      ],
+      "color": "#8B008B",
+      "bgcolor": "#1a001a"
+    },
+    {
+      "id": 2,
+      "type": "LoadImage",
+      "pos": [100, 500],
+      "size": [315, 314],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "outputs": [
+        {"name": "IMAGE", "type": "IMAGE", "links": [1, 2, 3]},
+        {"name": "MASK", "type": "MASK", "links": null}
+      ],
+      "properties": {},
+      "widgets_values": ["tribunal_source.png", "image"],
+      "title": "📷 SOURCE IMAGE",
+      "color": "#4682B4",
+      "bgcolor": "#1a2a3a"
+    },
+    {
+      "id": 3,
+      "type": "CheckpointLoaderSimple",
+      "pos": [500, 500],
+      "size": [315, 98],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "outputs": [
+        {"name": "MODEL", "type": "MODEL", "links": [4, 5, 6]},
+        {"name": "CLIP", "type": "CLIP", "links": [7, 8, 9, 10, 11, 12]},
+        {"name": "VAE", "type": "VAE", "links": [13, 14, 15]}
+      ],
+      "properties": {},
+      "widgets_values": ["sd_xl_base_1.0.safetensors"]
+    },
+    {
+      "id": 4,
+      "type": "EmptyLatentImage",
+      "pos": [500, 650],
+      "size": [315, 106],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "outputs": [
+        {"name": "LATENT", "type": "LATENT", "links": [16, 17, 18]}
+      ],
+      "properties": {},
+      "widgets_values": [1024, 1024, 1]
+    },
+    {
+      "id": 5,
+      "type": "BrainsXDEV_Florence2Adapter",
+      "pos": [900, 500],
+      "size": [350, 130],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {"name": "image", "type": "IMAGE", "link": 1}
+      ],
+      "outputs": [
+        {"name": "caption", "type": "STRING", "links": [19, 20, 21]},
+        {"name": "metadata", "type": "DICT", "links": null}
+      ],
+      "properties": {},
+      "widgets_values": ["microsoft/Florence-2-base", "<MORE_DETAILED_CAPTION>", 256],
+      "title": "👁️ Analyze Source"
+    },
+    {
+      "id": 6,
+      "type": "BrainsXDEV_PromptBrainSource",
+      "pos": [100, 900],
+      "size": [280, 110],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "outputs": [
+        {"name": "brain_data", "type": "BRAIN", "links": [22]}
+      ],
+      "properties": {},
+      "widgets_values": ["<create_new>", true],
+      "title": "🎨 BRAIN A: MAXIMALIST",
+      "color": "#FF0000",
+      "bgcolor": "#4a0000"
+    },
+    {
+      "id": 7,
+      "type": "BrainsXDEV_PromptBrainSource",
+      "pos": [100, 1050],
+      "size": [280, 110],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "outputs": [
+        {"name": "brain_data", "type": "BRAIN", "links": [23]}
+      ],
+      "properties": {},
+      "widgets_values": ["<create_new>", true],
+      "title": "🗿 BRAIN B: MINIMALIST",
+      "color": "#00FF00",
+      "bgcolor": "#003a00"
+    },
+    {
+      "id": 8,
+      "type": "BrainsXDEV_PromptBrainSource",
+      "pos": [100, 1200],
+      "size": [280, 110],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "outputs": [
+        {"name": "brain_data", "type": "BRAIN", "links": [24]}
+      ],
+      "properties": {},
+      "widgets_values": ["<create_new>", true],
+      "title": "🌀 BRAIN C: SURREALIST",
+      "color": "#0000FF",
+      "bgcolor": "#00001a"
+    },
+    {
+      "id": 9,
+      "type": "BrainsXDEV_PromptBrainLearnDirect",
+      "pos": [450, 900],
+      "size": [400, 220],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {"name": "brain_data", "type": "BRAIN", "link": 22},
+        {"name": "prompt", "type": "STRING", "link": 19}
+      ],
+      "outputs": [
+        {"name": "brain_data", "type": "BRAIN", "links": [25]}
+      ],
+      "properties": {},
+      "widgets_values": ["", 0.7, "artistic", "none", 2.0],
+      "title": "📚 Learn: MORE IS MORE"
+    },
+    {
+      "id": 10,
+      "type": "BrainsXDEV_PromptBrainLearnDirect",
+      "pos": [450, 1150],
+      "size": [400, 220],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {"name": "brain_data", "type": "BRAIN", "link": 23},
+        {"name": "prompt", "type": "STRING", "link": 20}
+      ],
+      "outputs": [
+        {"name": "brain_data", "type": "BRAIN", "links": [26]}
+      ],
+      "properties": {},
+      "widgets_values": ["", 0.7, "minimalist", "composition", 2.0],
+      "title": "📚 Learn: LESS IS MORE"
+    },
+    {
+      "id": 11,
+      "type": "BrainsXDEV_PromptBrainLearnDirect",
+      "pos": [450, 1400],
+      "size": [400, 220],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {"name": "brain_data", "type": "BRAIN", "link": 24},
+        {"name": "prompt", "type": "STRING", "link": 21}
+      ],
+      "outputs": [
+        {"name": "brain_data", "type": "BRAIN", "links": [27]}
+      ],
+      "properties": {},
+      "widgets_values": ["", 0.7, "abstract", "mood", 2.0],
+      "title": "📚 Learn: NOTHING MAKES SENSE"
+    },
+    {
+      "id": 12,
+      "type": "BrainsXDEV_PromptBrainSuggestDirect",
+      "pos": [900, 900],
+      "size": [450, 280],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {"name": "brain_data", "type": "BRAIN", "link": 25},
+        {"name": "base_prompt", "type": "STRING", "link": null}
+      ],
+      "outputs": [
+        {"name": "brain_data", "type": "BRAIN", "links": null},
+        {"name": "suggestion_1", "type": "STRING", "links": [28]},
+        {"name": "suggestion_2", "type": "STRING", "links": null},
+        {"name": "suggestion_3", "type": "STRING", "links": null}
+      ],
+      "properties": {},
+      "widgets_values": ["overwhelming complexity, every surface decorated", 3, 1.2, "none", 0.0],
+      "title": "🎨 Maximalist Vision"
+    },
+    {
+      "id": 13,
+      "type": "BrainsXDEV_PromptBrainSuggestDirect",
+      "pos": [900, 1150],
+      "size": [450, 280],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {"name": "brain_data", "type": "BRAIN", "link": 26},
+        {"name": "base_prompt", "type": "STRING", "link": null}
+      ],
+      "outputs": [
+        {"name": "brain_data", "type": "BRAIN", "links": null},
+        {"name": "suggestion_1", "type": "STRING", "links": [29]},
+        {"name": "suggestion_2", "type": "STRING", "links": null},
+        {"name": "suggestion_3", "type": "STRING", "links": null}
+      ],
+      "properties": {},
+      "widgets_values": ["single element, vast empty space, minimal composition", 3, 1.2, "none", 0.0],
+      "title": "🗿 Minimalist Vision"
+    },
+    {
+      "id": 14,
+      "type": "BrainsXDEV_PromptBrainSuggestDirect",
+      "pos": [900, 1400],
+      "size": [450, 280],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {"name": "brain_data", "type": "BRAIN", "link": 27},
+        {"name": "base_prompt", "type": "STRING", "link": null}
+      ],
+      "outputs": [
+        {"name": "brain_data", "type": "BRAIN", "links": null},
+        {"name": "suggestion_1", "type": "STRING", "links": [30]},
+        {"name": "suggestion_2", "type": "STRING", "links": null},
+        {"name": "suggestion_3", "type": "STRING", "links": null}
+      ],
+      "properties": {},
+      "widgets_values": ["impossible geometry, dream logic, contradictory physics", 3, 1.5, "none", 0.0],
+      "title": "🌀 Surrealist Vision"
+    },
+    {
+      "id": 15,
+      "type": "CLIPTextEncode",
+      "pos": [1400, 900],
+      "size": [400, 200],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {"name": "clip", "type": "CLIP", "link": 7},
+        {"name": "text", "type": "STRING", "link": 28}
+      ],
+      "outputs": [
+        {"name": "CONDITIONING", "type": "CONDITIONING", "links": [31]}
+      ],
+      "properties": {},
+      "widgets_values": [""],
+      "title": "Encode: Maximalist"
+    },
+    {
+      "id": 16,
+      "type": "CLIPTextEncode",
+      "pos": [1400, 1150],
+      "size": [400, 200],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [
+        {"name": "clip", "type": "CLIP", "link": 9},
+        {"name": "text", "type": "STRING", "link": 29}
+      ],
+      "outputs": [
+        {"name": "CONDITIONING", "type": "CONDITIONING", "links": [32]}
+      ],
+      "properties": {},
+      "widgets_values": [""],
+      "title": "Encode: Minimalist"
+    },
+    {
+      "id": 17,
+      "type": "CLIPTextEncode",
+      "pos": [1400, 1400],
+      "size": [400, 200],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [
+        {"name": "clip", "type": "CLIP", "link": 11},
+        {"name": "text", "type": "STRING", "link": 30}
+      ],
+      "outputs": [
+        {"name": "CONDITIONING", "type": "CONDITIONING", "links": [33]}
+      ],
+      "properties": {},
+      "widgets_values": [""],
+      "title": "Encode: Surrealist"
+    },
+    {
+      "id": 18,
+      "type": "CLIPTextEncode",
+      "pos": [1400, 700],
+      "size": [400, 150],
+      "flags": {},
+      "order": 17,
+      "mode": 0,
+      "inputs": [
+        {"name": "clip", "type": "CLIP", "link": 8}
+      ],
+      "outputs": [
+        {"name": "CONDITIONING", "type": "CONDITIONING", "links": [34, 35, 36]}
+      ],
+      "properties": {},
+      "widgets_values": ["blurry, low quality, text, watermark"],
+      "title": "Negative (Universal)"
+    },
+    {
+      "id": 19,
+      "type": "KSampler",
+      "pos": [1900, 900],
+      "size": [315, 262],
+      "flags": {},
+      "order": 18,
+      "mode": 0,
+      "inputs": [
+        {"name": "model", "type": "MODEL", "link": 4},
+        {"name": "positive", "type": "CONDITIONING", "link": 31},
+        {"name": "negative", "type": "CONDITIONING", "link": 34},
+        {"name": "latent_image", "type": "LATENT", "link": 16}
+      ],
+      "outputs": [
+        {"name": "LATENT", "type": "LATENT", "links": [37]}
+      ],
+      "properties": {},
+      "widgets_values": [11111, "fixed", 35, 8.5, "dpmpp_2m", "karras", 1],
+      "title": "🔴 Gen: MAXIMALIST",
+      "color": "#FF0000",
+      "bgcolor": "#3a0000"
+    },
+    {
+      "id": 20,
+      "type": "KSampler",
+      "pos": [1900, 1200],
+      "size": [315, 262],
+      "flags": {},
+      "order": 19,
+      "mode": 0,
+      "inputs": [
+        {"name": "model", "type": "MODEL", "link": 5},
+        {"name": "positive", "type": "CONDITIONING", "link": 32},
+        {"name": "negative", "type": "CONDITIONING", "link": 35},
+        {"name": "latent_image", "type": "LATENT", "link": 17}
+      ],
+      "outputs": [
+        {"name": "LATENT", "type": "LATENT", "links": [38]}
+      ],
+      "properties": {},
+      "widgets_values": [11111, "fixed", 25, 6.0, "euler", "simple", 1],
+      "title": "🟢 Gen: MINIMALIST",
+      "color": "#00FF00",
+      "bgcolor": "#003a00"
+    },
+    {
+      "id": 21,
+      "type": "KSampler",
+      "pos": [1900, 1500],
+      "size": [315, 262],
+      "flags": {},
+      "order": 20,
+      "mode": 0,
+      "inputs": [
+        {"name": "model", "type": "MODEL", "link": 6},
+        {"name": "positive", "type": "CONDITIONING", "link": 33},
+        {"name": "negative", "type": "CONDITIONING", "link": 36},
+        {"name": "latent_image", "type": "LATENT", "link": 18}
+      ],
+      "outputs": [
+        {"name": "LATENT", "type": "LATENT", "links": [39]}
+      ],
+      "properties": {},
+      "widgets_values": [11111, "fixed", 28, 9.5, "euler_ancestral", "normal", 1],
+      "title": "🔵 Gen: SURREALIST",
+      "color": "#0000FF",
+      "bgcolor": "#00002a"
+    },
+    {
+      "id": 22,
+      "type": "VAEDecode",
+      "pos": [2300, 900],
+      "size": [210, 46],
+      "flags": {},
+      "order": 21,
+      "mode": 0,
+      "inputs": [
+        {"name": "samples", "type": "LATENT", "link": 37},
+        {"name": "vae", "type": "VAE", "link": 13}
+      ],
+      "outputs": [
+        {"name": "IMAGE", "type": "IMAGE", "links": [40, 43]}
+      ],
+      "properties": {}
+    },
+    {
+      "id": 23,
+      "type": "VAEDecode",
+      "pos": [2300, 1200],
+      "size": [210, 46],
+      "flags": {},
+      "order": 22,
+      "mode": 0,
+      "inputs": [
+        {"name": "samples", "type": "LATENT", "link": 38},
+        {"name": "vae", "type": "VAE", "link": 14}
+      ],
+      "outputs": [
+        {"name": "IMAGE", "type": "IMAGE", "links": [41, 44]}
+      ],
+      "properties": {}
+    },
+    {
+      "id": 24,
+      "type": "VAEDecode",
+      "pos": [2300, 1500],
+      "size": [210, 46],
+      "flags": {},
+      "order": 23,
+      "mode": 0,
+      "inputs": [
+        {"name": "samples", "type": "LATENT", "link": 39},
+        {"name": "vae", "type": "VAE", "link": 15}
+      ],
+      "outputs": [
+        {"name": "IMAGE", "type": "IMAGE", "links": [42, 45]}
+      ],
+      "properties": {}
+    },
+    {
+      "id": 25,
+      "type": "SaveImage",
+      "pos": [2600, 900],
+      "size": [315, 270],
+      "flags": {},
+      "order": 24,
+      "mode": 0,
+      "inputs": [
+        {"name": "images", "type": "IMAGE", "link": 43}
+      ],
+      "properties": {},
+      "widgets_values": ["tribunal_maximalist"],
+      "title": "💾 Maximalist Output"
+    },
+    {
+      "id": 26,
+      "type": "SaveImage",
+      "pos": [2600, 1200],
+      "size": [315, 270],
+      "flags": {},
+      "order": 25,
+      "mode": 0,
+      "inputs": [
+        {"name": "images", "type": "IMAGE", "link": 44}
+      ],
+      "properties": {},
+      "widgets_values": ["tribunal_minimalist"],
+      "title": "💾 Minimalist Output"
+    },
+    {
+      "id": 27,
+      "type": "SaveImage",
+      "pos": [2600, 1500],
+      "size": [315, 270],
+      "flags": {},
+      "order": 26,
+      "mode": 0,
+      "inputs": [
+        {"name": "images", "type": "IMAGE", "link": 45}
+      ],
+      "properties": {},
+      "widgets_values": ["tribunal_surrealist"],
+      "title": "💾 Surrealist Output"
+    },
+    {
+      "id": 28,
+      "type": "BrainsXDEV_PromptBrainQualityScore",
+      "pos": [3000, 900],
+      "size": [350, 310],
+      "flags": {},
+      "order": 27,
+      "mode": 0,
+      "inputs": [
+        {"name": "image", "type": "IMAGE", "link": 40},
+        {"name": "caption", "type": "STRING", "link": null}
+      ],
+      "outputs": [
+        {"name": "quality_score", "type": "FLOAT", "links": null},
+        {"name": "detailed_analysis", "type": "STRING", "links": [46]},
+        {"name": "quality_grade", "type": "STRING", "links": null},
+        {"name": "technical_score", "type": "FLOAT", "links": null},
+        {"name": "artistic_score", "type": "FLOAT", "links": null},
+        {"name": "semantic_score", "type": "FLOAT", "links": null}
+      ],
+      "properties": {},
+      "widgets_values": ["", "detail_richness", "detailed", "generous", 0.2, 0, true, true, true, false],
+      "title": "🏆 Score: Maximalist\n(Rewards Complexity)",
+      "color": "#FF0000",
+      "bgcolor": "#2a0000"
+    },
+    {
+      "id": 29,
+      "type": "BrainsXDEV_PromptBrainQualityScore",
+      "pos": [3000, 1200],
+      "size": [350, 310],
+      "flags": {},
+      "order": 28,
+      "mode": 0,
+      "inputs": [
+        {"name": "image", "type": "IMAGE", "link": 41},
+        {"name": "caption", "type": "STRING", "link": null}
+      ],
+      "outputs": [
+        {"name": "quality_score", "type": "FLOAT", "links": null},
+        {"name": "detailed_analysis", "type": "STRING", "links": [47]},
+        {"name": "quality_grade", "type": "STRING", "links": null},
+        {"name": "technical_score", "type": "FLOAT", "links": null},
+        {"name": "artistic_score", "type": "FLOAT", "links": null},
+        {"name": "semantic_score", "type": "FLOAT", "links": null}
+      ],
+      "properties": {},
+      "widgets_values": ["", "composition", "detailed", "conservative", -0.2, 0, true, true, false, false],
+      "title": "🏆 Score: Minimalist\n(Rewards Simplicity)",
+      "color": "#00FF00",
+      "bgcolor": "#002a00"
+    },
+    {
+      "id": 30,
+      "type": "BrainsXDEV_PromptBrainQualityScore",
+      "pos": [3000, 1500],
+      "size": [350, 310],
+      "flags": {},
+      "order": 29,
+      "mode": 0,
+      "inputs": [
+        {"name": "image", "type": "IMAGE", "link": 42},
+        {"name": "caption", "type": "STRING", "link": null}
+      ],
+      "outputs": [
+        {"name": "quality_score", "type": "FLOAT", "links": null},
+        {"name": "detailed_analysis", "type": "STRING", "links": [48]},
+        {"name": "quality_grade", "type": "STRING", "links": null},
+        {"name": "technical_score", "type": "FLOAT", "links": null},
+        {"name": "artistic_score", "type": "FLOAT", "links": null},
+        {"name": "semantic_score", "type": "FLOAT", "links": null}
+      ],
+      "properties": {},
+      "widgets_values": ["", "creativity", "detailed", "artistic", 0.3, 0, false, true, true, false],
+      "title": "🏆 Score: Surrealist\n(Rewards Weirdness)",
+      "color": "#0000FF",
+      "bgcolor": "#00001a"
+    },
+    {
+      "id": 31,
+      "type": "ShowText",
+      "pos": [3450, 900],
+      "size": [400, 150],
+      "flags": {},
+      "order": 30,
+      "mode": 0,
+      "inputs": [
+        {"name": "text", "type": "STRING", "link": 46}
+      ],
+      "properties": {},
+      "widgets_values": [""],
+      "title": "📊 Maximalist Score"
+    },
+    {
+      "id": 32,
+      "type": "ShowText",
+      "pos": [3450, 1100],
+      "size": [400, 150],
+      "flags": {},
+      "order": 31,
+      "mode": 0,
+      "inputs": [
+        {"name": "text", "type": "STRING", "link": 47}
+      ],
+      "properties": {},
+      "widgets_values": [""],
+      "title": "📊 Minimalist Score"
+    },
+    {
+      "id": 33,
+      "type": "ShowText",
+      "pos": [3450, 1300],
+      "size": [400, 150],
+      "flags": {},
+      "order": 32,
+      "mode": 0,
+      "inputs": [
+        {"name": "text", "type": "STRING", "link": 48}
+      ],
+      "properties": {},
+      "widgets_values": [""],
+      "title": "📊 Surrealist Score"
+    },
+    {
+      "id": 34,
+      "type": "Note",
+      "pos": [3450, 1500],
+      "size": [600, 300],
+      "flags": {},
+      "order": 33,
+      "mode": 0,
+      "properties": {},
+      "widgets_values": [
+        "🏆 TRIBUNAL VERDICT 🏆\n\nCompare the 3 scores to declare WINNER:\n\n🔴 Maximalist: [Score Above]\n🟢 Minimalist: [Score Above]\n🔵 Surrealist: [Score Above]\n\n⚔️ MEMORY WARFARE OPTIONS:\n\n1️⃣ WINNER TAKES ALL:\n   - Highest score wins\n   - Winner's patterns influence losers\n   - Gradual personality convergence\n\n2️⃣ DEMOCRATIC MERGE:\n   - All 3 contribute equally\n   - Creates balanced hybrid\n   - Loss of distinct personalities\n\n3️⃣ CHAOS SABOTAGE:\n   - Randomly swap memories\n   - Force incompatible merges\n   - Maximalist gets Minimal memories = identity crisis\n   - Creates schizophrenic chimeras\n\n4️⃣ AUTOCRATIC OVERRIDE:\n   - YOU pick winner manually\n   - Ignore scores entirely\n   - Force desired aesthetic evolution\n\n🔮 NEXT ITERATION:\nRun workflow again with corrupted memories.\nWatch personalities evolve/conflict/merge.\nEventually: New hybrid personality emerges!\n\n💥 RESET OPTION:\nIf personalities too corrupted:\nUse PromptBrainReset on each BRAIN.\nRestarts competition fresh."
+      ],
+      "color": "#FFD700",
+      "bgcolor": "#3a2a00"
+    },
+    {
+      "id": 35,
+      "type": "Note",
+      "pos": [100, 1370],
+      "size": [280, 150],
+      "flags": {},
+      "order": 34,
+      "mode": 0,
+      "properties": {},
+      "widgets_values": [
+        "💡 PRO TIP:\n\nBRAIN memory names:\n• maximalist_brain\n• minimalist_brain\n• surrealist_brain\n\nThese persist between runs.\nMemories accumulate!\n\nAfter 3-4 iterations:\nPersonalities will start\nto merge or conflict."
+      ],
+      "color": "#9370DB",
+      "bgcolor": "#1a0a2a"
+    }
+  ],
+  "links": [
+    [1, 2, 0, 5, 0, "IMAGE"],
+    [2, 2, 0, null, null, null],
+    [3, 2, 0, null, null, null],
+    [4, 3, 0, 19, 0, "MODEL"],
+    [5, 3, 0, 20, 0, "MODEL"],
+    [6, 3, 0, 21, 0, "MODEL"],
+    [7, 3, 1, 15, 0, "CLIP"],
+    [8, 3, 1, 18, 0, "CLIP"],
+    [9, 3, 1, 16, 0, "CLIP"],
+    [10, 3, 1, null, null, null],
+    [11, 3, 1, 17, 0, "CLIP"],
+    [12, 3, 1, null, null, null],
+    [13, 3, 2, 22, 1, "VAE"],
+    [14, 3, 2, 23, 1, "VAE"],
+    [15, 3, 2, 24, 1, "VAE"],
+    [16, 4, 0, 19, 3, "LATENT"],
+    [17, 4, 0, 20, 3, "LATENT"],
+    [18, 4, 0, 21, 3, "LATENT"],
+    [19, 5, 0, 9, 1, "STRING"],
+    [20, 5, 0, 10, 1, "STRING"],
+    [21, 5, 0, 11, 1, "STRING"],
+    [22, 6, 0, 9, 0, "BRAIN"],
+    [23, 7, 0, 10, 0, "BRAIN"],
+    [24, 8, 0, 11, 0, "BRAIN"],
+    [25, 9, 0, 12, 0, "BRAIN"],
+    [26, 10, 0, 13, 0, "BRAIN"],
+    [27, 11, 0, 14, 0, "BRAIN"],
+    [28, 12, 1, 15, 1, "STRING"],
+    [29, 13, 1, 16, 1, "STRING"],
+    [30, 14, 1, 17, 1, "STRING"],
+    [31, 15, 0, 19, 1, "CONDITIONING"],
+    [32, 16, 0, 20, 1, "CONDITIONING"],
+    [33, 17, 0, 21, 1, "CONDITIONING"],
+    [34, 18, 0, 19, 2, "CONDITIONING"],
+    [35, 18, 0, 20, 2, "CONDITIONING"],
+    [36, 18, 0, 21, 2, "CONDITIONING"],
+    [37, 19, 0, 22, 0, "LATENT"],
+    [38, 20, 0, 23, 0, "LATENT"],
+    [39, 21, 0, 24, 0, "LATENT"],
+    [40, 22, 0, 28, 0, "IMAGE"],
+    [41, 23, 0, 29, 0, "IMAGE"],
+    [42, 24, 0, 30, 0, "IMAGE"],
+    [43, 22, 0, 25, 0, "IMAGE"],
+    [44, 23, 0, 26, 0, "IMAGE"],
+    [45, 24, 0, 27, 0, "IMAGE"],
+    [46, 28, 1, 31, 0, "STRING"],
+    [47, 29, 1, 32, 0, "STRING"],
+    [48, 30, 1, 33, 0, "STRING"]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {},
+  "version": 0.4
+}

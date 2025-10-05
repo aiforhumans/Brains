@@ -1,0 +1,617 @@
+{
+  "last_node_id": 20,
+  "last_link_id": 25,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "Note",
+      "pos": [50, 50],
+      "size": [1800, 280],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "properties": {},
+      "widgets_values": [
+        "🔄 ITERATIVE LEARNING LOOP - Brains-XDEV\n\n✨ Purpose: Generate → Analyze → Learn → Improve → Repeat\n\n📋 Workflow Components:\n1. GENERATION - Create images from prompts\n2. ANALYSIS - Score quality with AI\n3. LEARNING - Train BRAIN with results\n4. ADAPTATION - Generate improved prompts\n5. ITERATION - Feed back into generation\n\n🎯 How It Works:\n• Start with initial prompt\n• Generate image with KSampler\n• Score quality (technical, artistic, semantic)\n• Learn from high-scoring results\n• Suggest improved prompt based on learning\n• Use suggestion for next iteration\n\n⚡ Manual Loop Process:\n1. Set initial prompt in LoadCheckpoint notes\n2. Queue prompt (generates image)\n3. Check quality score output\n4. Review suggested improvements\n5. Copy suggestion to prompt input\n6. Queue again for next iteration\n7. Repeat until satisfied\n\n🔮 Future Enhancement:\n• Add loop counter node\n• Automatic iteration control\n• Convergence detection\n• Best result selection\n\n💡 Tips:\n• High scores (>0.7) = good learning data\n• Low scores (<0.3) = avoid these patterns\n• Watch suggestion output for insights\n• Save successful prompts\n• Track improvement over iterations"
+      ],
+      "color": "#222",
+      "bgcolor": "#000"
+    },
+    {
+      "id": 2,
+      "type": "CheckpointLoaderSimple",
+      "pos": [100, 400],
+      "size": [350, 100],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [1]
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [2, 3]
+        },
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [4]
+        }
+      ],
+      "properties": {},
+      "widgets_values": ["sd_xl_base_1.0.safetensors"],
+      "title": "🎨 Load Model"
+    },
+    {
+      "id": 3,
+      "type": "CLIPTextEncode",
+      "pos": [100, 550],
+      "size": [400, 200],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 2
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [5]
+        }
+      ],
+      "properties": {},
+      "widgets_values": ["beautiful landscape, mountains, sunset, highly detailed, photorealistic, 8k"],
+      "title": "✏️ Positive Prompt (EDIT THIS EACH ITERATION)"
+    },
+    {
+      "id": 4,
+      "type": "CLIPTextEncode",
+      "pos": [100, 800],
+      "size": [400, 100],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 3
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [6]
+        }
+      ],
+      "properties": {},
+      "widgets_values": ["blurry, low quality, distorted, watermark"],
+      "title": "🚫 Negative Prompt"
+    },
+    {
+      "id": 5,
+      "type": "EmptyLatentImage",
+      "pos": [100, 950],
+      "size": [315, 110],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [7]
+        }
+      ],
+      "properties": {},
+      "widgets_values": [1024, 1024, 1],
+      "title": "📐 Canvas"
+    },
+    {
+      "id": 6,
+      "type": "KSampler",
+      "pos": [550, 400],
+      "size": [315, 262],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 1
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 5
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 6
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [8]
+        }
+      ],
+      "properties": {},
+      "widgets_values": [42, "fixed", 25, 7.5, "euler_ancestral", "normal", 1],
+      "title": "⚡ Generate"
+    },
+    {
+      "id": 7,
+      "type": "VAEDecode",
+      "pos": [550, 720],
+      "size": [210, 46],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 8
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 4
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [9, 10, 11]
+        }
+      ],
+      "properties": {},
+      "title": "🖼️ Decode"
+    },
+    {
+      "id": 8,
+      "type": "SaveImage",
+      "pos": [550, 820],
+      "size": [315, 270],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 9
+        }
+      ],
+      "properties": {},
+      "widgets_values": ["brains_iteration"],
+      "title": "💾 Save Result"
+    },
+    {
+      "id": 9,
+      "type": "BrainsXDEV_Florence2Adapter",
+      "pos": [950, 400],
+      "size": [350, 130],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 10
+        }
+      ],
+      "outputs": [
+        {
+          "name": "caption",
+          "type": "STRING",
+          "links": [12, 13]
+        },
+        {
+          "name": "metadata",
+          "type": "DICT",
+          "links": null
+        }
+      ],
+      "properties": {},
+      "widgets_values": [
+        "microsoft/Florence-2-base",
+        "<DETAILED_CAPTION>",
+        128
+      ],
+      "title": "🤖 Analyze Image"
+    },
+    {
+      "id": 10,
+      "type": "BrainsXDEV_PromptBrainQualityScore",
+      "pos": [950, 580],
+      "size": [400, 410],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 11
+        },
+        {
+          "name": "caption",
+          "type": "STRING",
+          "widget": {"name": "caption"},
+          "link": 12
+        }
+      ],
+      "outputs": [
+        {
+          "name": "quality_score",
+          "type": "FLOAT",
+          "links": [14, 15]
+        },
+        {
+          "name": "detailed_analysis",
+          "type": "STRING",
+          "links": [16]
+        },
+        {
+          "name": "quality_grade",
+          "type": "STRING",
+          "links": [17]
+        },
+        {
+          "name": "technical_score",
+          "type": "FLOAT",
+          "links": null
+        },
+        {
+          "name": "artistic_score",
+          "type": "FLOAT",
+          "links": null
+        },
+        {
+          "name": "semantic_score",
+          "type": "FLOAT",
+          "links": null
+        }
+      ],
+      "properties": {},
+      "widgets_values": [
+        "",
+        "overall_quality",
+        "detailed",
+        "balanced",
+        0,
+        0,
+        true,
+        true,
+        true,
+        true
+      ],
+      "title": "🎯 Score Quality"
+    },
+    {
+      "id": 11,
+      "type": "ShowText|pysssss",
+      "pos": [1400, 580],
+      "size": [400, 300],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 16
+        }
+      ],
+      "outputs": [],
+      "properties": {},
+      "title": "📊 Quality Analysis"
+    },
+    {
+      "id": 12,
+      "type": "ShowText|pysssss",
+      "pos": [1400, 920],
+      "size": [400, 100],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 17
+        }
+      ],
+      "properties": {},
+      "title": "🏆 Grade"
+    },
+    {
+      "id": 13,
+      "type": "BrainsXDEV_PromptBrainSource",
+      "pos": [100, 1150],
+      "size": [280, 110],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "brain_data",
+          "type": "BRAIN",
+          "links": [18]
+        }
+      ],
+      "properties": {},
+      "widgets_values": ["<auto_find>", false, true],
+      "title": "🧠 BRAIN Source"
+    },
+    {
+      "id": 14,
+      "type": "BrainsXDEV_PromptBrainLearnDirect",
+      "pos": [450, 1150],
+      "size": [400, 210],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "brain_data",
+          "type": "BRAIN",
+          "link": 18
+        },
+        {
+          "name": "prompt",
+          "type": "STRING",
+          "widget": {"name": "prompt"},
+          "link": 13
+        },
+        {
+          "name": "score",
+          "type": "FLOAT",
+          "widget": {"name": "score"},
+          "link": 14
+        }
+      ],
+      "outputs": [
+        {
+          "name": "brain_data",
+          "type": "BRAIN",
+          "links": [19]
+        },
+        {
+          "name": "status",
+          "type": "STRING",
+          "links": [20]
+        }
+      ],
+      "properties": {},
+      "widgets_values": [
+        "",
+        0.5,
+        "photorealistic",
+        "composition",
+        1.5
+      ],
+      "title": "📚 Learn from Result"
+    },
+    {
+      "id": 15,
+      "type": "ShowText|pysssss",
+      "pos": [900, 1150],
+      "size": [350, 100],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 20
+        }
+      ],
+      "outputs": [],
+      "properties": {},
+      "title": "✅ Learn Status"
+    },
+    {
+      "id": 16,
+      "type": "BrainsXDEV_PromptBrainSuggestDirect",
+      "pos": [450, 1420],
+      "size": [400, 310],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "brain_data",
+          "type": "BRAIN",
+          "link": 19
+        },
+        {
+          "name": "base_prompt",
+          "type": "STRING",
+          "widget": {"name": "base_prompt"},
+          "link": 13
+        }
+      ],
+      "outputs": [
+        {
+          "name": "brain_data",
+          "type": "BRAIN",
+          "links": null
+        },
+        {
+          "name": "suggestion_1",
+          "type": "STRING",
+          "links": [21]
+        },
+        {
+          "name": "suggestion_2",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "suggestion_3",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {},
+      "widgets_values": [
+        "",
+        3,
+        1.0,
+        "none",
+        0.3
+      ],
+      "title": "💡 Suggest Improvement"
+    },
+    {
+      "id": 17,
+      "type": "ShowText|pysssss",
+      "pos": [900, 1420],
+      "size": [550, 250],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 21
+        }
+      ],
+      "outputs": [],
+      "properties": {},
+      "title": "🔮 Suggested Next Prompt (COPY THIS TO TOP)"
+    },
+    {
+      "id": 18,
+      "type": "ShowText|pysssss",
+      "pos": [900, 1720],
+      "size": [350, 200],
+      "flags": {},
+      "order": 17,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": null
+        }
+      ],
+      "outputs": [],
+      "properties": {},
+      "title": "🔍 Suggestion 2 (Optional)"
+    },
+    {
+      "id": 19,
+      "type": "Note",
+      "pos": [1500, 1150],
+      "size": [450, 770],
+      "flags": {},
+      "order": 18,
+      "mode": 0,
+      "properties": {},
+      "widgets_values": [
+        "🔄 ITERATION GUIDE\n\n📋 Manual Loop Process:\n\n1️⃣ FIRST RUN:\n   • Set initial prompt in node #3\n   • Queue prompt\n   • Wait for completion\n\n2️⃣ REVIEW RESULTS:\n   • Check quality score (node #10)\n   • Read analysis (node #11)\n   • See grade (node #12)\n   • View generated image\n\n3️⃣ CHECK LEARNING:\n   • Learn status (node #15)\n   • High score = learned pattern\n   • Low score = avoid pattern\n\n4️⃣ GET SUGGESTION:\n   • Read suggested prompt (node #17)\n   • Review suggestion details (node #18)\n   • Understand improvements\n\n5️⃣ NEXT ITERATION:\n   • Copy suggested prompt\n   • Paste into node #3 (top)\n   • Queue prompt again\n   • Repeat process\n\n🎯 Stopping Criteria:\n\n✅ Quality score > 0.8\n✅ Grade = A or S\n✅ Visually satisfied\n✅ Diminishing improvements\n\n📊 Track Progress:\n\nIteration 1: Score ___\nIteration 2: Score ___\nIteration 3: Score ___\nIteration 4: Score ___\nIteration 5: Score ___\n\n🏆 Best Result:\n• Iteration #: ___\n• Score: ___\n• Prompt: ___________\n\n💡 Tips:\n• Save good results\n• Note what works\n• Try different seeds\n• Adjust target_score\n• Experiment with styles\n\n🔮 Future Auto-Loop:\n• Add loop counter\n• Auto-copy suggestions\n• Stop at target score\n• Save best results\n• Compare iterations"
+      ],
+      "color": "#233",
+      "bgcolor": "#355"
+    },
+    {
+      "id": 20,
+      "type": "Note",
+      "pos": [1850, 400],
+      "size": [400, 680],
+      "flags": {},
+      "order": 19,
+      "mode": 0,
+      "properties": {},
+      "widgets_values": [
+        "⚙️ PARAMETER TUNING\n\n🎨 Generation (Node #6):\n• seed: Change for variety\n• steps: 20-30 for quality\n• cfg: 7-8 for balance\n• sampler: euler_ancestral\n• scheduler: normal\n\n🤖 Florence2 (Node #9):\n• <CAPTION>: Brief\n• <DETAILED_CAPTION>: Rich\n• <MORE_DETAILED_CAPTION>: Verbose\n• max_tokens: 64-256\n\n🎯 Quality Score (Node #10):\n• Criteria:\n  - overall_quality\n  - technical_quality\n  - artistic_quality\n• Depth:\n  - quick (fast)\n  - standard (balanced)\n  - detailed (thorough)\n• Model:\n  - balanced\n  - technical_focus\n  - artistic_focus\n\n📚 Learning (Node #14):\n• style_category:\n  - photorealistic\n  - artistic\n  - cinematic\n  - abstract\n• feature_emphasis:\n  - composition\n  - lighting\n  - color\n  - detail\n• learning_rate: 1.0-2.0\n\n💡 Suggestion (Node #16):\n• target_score: 0.7-0.9\n• suggestion_mode:\n  - improve (enhance)\n  - explore (variety)\n  - refine (polish)\n• max_suggestions: 3-10\n• creativity: 0.8-1.5\n• temperature: 0.5-1.0\n\n🔧 Optimization:\n• High scores → lower learning_rate\n• Low scores → higher creativity\n• Stuck → change suggestion_mode\n• Fast iteration → quick depth\n• Best quality → detailed depth"
+      ],
+      "color": "#323",
+      "bgcolor": "#535"
+    }
+  ],
+  "links": [
+    [1, 2, 0, 6, 0, "MODEL"],
+    [2, 2, 1, 3, 0, "CLIP"],
+    [3, 2, 1, 4, 0, "CLIP"],
+    [4, 2, 2, 7, 1, "VAE"],
+    [5, 3, 0, 6, 1, "CONDITIONING"],
+    [6, 4, 0, 6, 2, "CONDITIONING"],
+    [7, 5, 0, 6, 3, "LATENT"],
+    [8, 6, 0, 7, 0, "LATENT"],
+    [9, 7, 0, 8, 0, "IMAGE"],
+    [10, 7, 0, 9, 0, "IMAGE"],
+    [11, 7, 0, 10, 0, "IMAGE"],
+    [12, 9, 0, 10, 1, "STRING"],
+    [13, 9, 0, 14, 1, "STRING"],
+    [14, 10, 0, 14, 2, "FLOAT"],
+    [16, 10, 1, 11, 0, "STRING"],
+    [17, 10, 2, 12, 0, "STRING"],
+    [18, 13, 0, 14, 0, "BRAIN"],
+    [19, 14, 0, 16, 0, "BRAIN"],
+    [20, 14, 1, 15, 0, "STRING"],
+    [21, 16, 1, 17, 0, "STRING"],
+    [13, 9, 0, 16, 1, "STRING"]
+  ],
+  "groups": [
+    {
+      "title": "🎨 1. GENERATION",
+      "bounding": [70, 370, 820, 720],
+      "color": "#3f789e",
+      "font_size": 24
+    },
+    {
+      "title": "🤖 2. ANALYSIS",
+      "bounding": [920, 370, 910, 680],
+      "color": "#a1309b",
+      "font_size": 24
+    },
+    {
+      "title": "📚 3. LEARNING",
+      "bounding": [70, 1120, 1210, 270],
+      "color": "#8a8",
+      "font_size": 24
+    },
+    {
+      "title": "💡 4. ADAPTATION",
+      "bounding": [420, 1390, 1060, 560],
+      "color": "#88a",
+      "font_size": 24
+    }
+  ],
+  "config": {},
+  "extra": {
+    "workspace_info": {
+      "id": "iterative-learning-loop",
+      "version": "1.0.0",
+      "description": "Manual iterative loop: Generate → Analyze → Learn → Improve → Repeat"
+    }
+  },
+  "version": 0.4
+}

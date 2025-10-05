@@ -1,0 +1,130 @@
+{
+  "last_node_id": 5,
+  "last_link_id": 3,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "BrainsXDEV_PromptBrainSource",
+      "pos": [300, 100],
+      "size": [280, 110],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "brain_data",
+          "type": "BRAIN",
+          "links": [1]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "BrainsXDEV_PromptBrainSource"
+      },
+      "widgets_values": [
+        "<auto_find>",
+        false,
+        true
+      ],
+      "title": "🧠 BRAIN Data Source",
+      "color": "#2a363b",
+      "bgcolor": "#3f5159"
+    },
+    {
+      "id": 2,
+      "type": "ShowText|pysssss",
+      "pos": [650, 100],
+      "size": [400, 200],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 2
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {},
+      "widgets_values": [""],
+      "title": "📊 Status Output"
+    },
+    {
+      "id": 3,
+      "type": "Show any [Crystools]",
+      "pos": [650, 350],
+      "size": [400, 150],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "any_value",
+          "type": "*",
+          "link": 1
+        }
+      ],
+      "outputs": [],
+      "properties": {},
+      "title": "🔍 BRAIN Data Inspector"
+    },
+    {
+      "id": 4,
+      "type": "Note",
+      "pos": [300, 250],
+      "size": [280, 180],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "properties": {},
+      "widgets_values": [
+        "PromptBrain Source\n\n📝 Creates or loads BRAIN data\n\nOptions:\n• <auto_find> - Auto-discover brain files\n• <new> - Create new BRAIN data\n• filename.brain - Load specific file\n\n🔧 Auto-init creates DB if needed\n📊 Shows loaded data in inspector"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 5,
+      "type": "Note",
+      "pos": [1100, 100],
+      "size": [300, 400],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "properties": {},
+      "widgets_values": [
+        "🧠 BRAIN Data Source Workflow\n\n✅ Purpose:\nCreate or load BRAIN data for use in\nPromptBrain learning and generation\n\n📋 Steps:\n1. Configure source options\n2. Queue prompt\n3. Check status output\n4. Inspect BRAIN data structure\n\n🔍 Debug Info:\n• Status text shows load success\n• Inspector shows data structure\n• Console logs DB operations\n\n⚙️ Parameters:\nfile_path: Brain file location\n  - <auto_find> = auto-discover\n  - <new> = create new\n  - 'name.brain' = load specific\n\nauto_init: Auto-create DB\ncreate_new: Force new creation\n\n💡 Tips:\n• First run creates new DB\n• Auto-find searches directory\n• Use descriptive filenames\n• DB stored in project root"
+      ],
+      "color": "#233",
+      "bgcolor": "#355"
+    }
+  ],
+  "links": [
+    [1, 1, 0, 3, 0, "BRAIN"],
+    [2, 1, 0, 2, 0, "*"]
+  ],
+  "groups": [
+    {
+      "title": "🧠 PromptBrain Source - BRAIN Data Creation",
+      "bounding": [270, 30, 810, 500],
+      "color": "#3f789e",
+      "font_size": 24
+    }
+  ],
+  "config": {},
+  "extra": {
+    "workspace_info": {
+      "id": "promptbrain-source",
+      "version": "1.0.0",
+      "description": "Template for BrainsXDEV_PromptBrainSource - Creates or loads BRAIN custom datatype for PromptBrain workflows"
+    }
+  },
+  "version": 0.4
+}

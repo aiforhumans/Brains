@@ -1,0 +1,676 @@
+{
+  "last_node_id": 28,
+  "last_link_id": 44,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "Note",
+      "pos": [50, 50],
+      "size": [2100, 300],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "properties": {},
+      "widgets_values": [
+        "🎮 CHARACTER CONCEPT ART - Fantasy/Game Design Evolution System\n\n✨ Purpose: Create multiple character design variants with iterative evolution, style consistency checks, and character sheet generation\n\n🎯 Workflow Features:\n• Multi-Variant Generation - Create 4 distinct character designs (warrior, mage, rogue, paladin archetypes)\n• Style Consistency Learning - BRAIN learns character design vocabulary across all variants\n• Iterative Evolution - Best design → Analyze → Refine → Evolved version\n• Fantasy Elements - Armor, weapons, magical effects, distinctive silhouettes\n• Character Sheet Ready - Multiple angles, consistent design language\n\n📋 Workflow Stages:\n1. INITIAL VARIANTS - Generate 4 character archetypes with different aesthetics\n2. ANALYSIS PHASE - Florence2 analyzes each design (clothing, pose, features)\n3. STYLE LEARNING - BRAIN learns common design elements across all variants\n4. BEST SELECTION - Identify strongest design (manual selection or highest quality)\n5. EVOLUTION - Generate refined/evolved version of best character\n6. CHARACTER SHEET - Final output ready for game/fantasy project\n\n💡 Character Design Elements:\n• Silhouette: Distinct, recognizable at distance, clear shape language\n• Color Palette: 3-5 main colors, cohesive scheme, symbolic meaning\n• Details: Armor design, clothing layers, accessories, weapons\n• Personality: Visual storytelling through pose, expression, gear\n• Fantasy/Sci-fi: Magic effects, tech elements, unique aesthetics\n\n🎨 Archetype Styles:\n• Warrior: Heavy armor, strong silhouette, weapons focus, battle-worn\n• Mage: Flowing robes, magical symbols, staff/tome, mystical aura\n• Rogue: Light armor, agile pose, daggers/tools, dark colors\n• Paladin: Holy armor, shield/sword, radiant effects, noble stance\n• Ranger: Nature-themed, bow/arrows, earth tones, travel gear\n• Necromancer: Dark robes, skeletal motifs, death magic, ominous\n\n⚙️ Settings Guide:\n• Steps: 40-50 (high detail for character art)\n• CFG: 7.0-8.0 (strong prompt adherence for design)\n• Sampler: dpmpp_2m or euler (clean character renders)\n• Seeds: Variant specific (12345, 23456, 34567, 45678)\n• Evolved seed: 99999 (distinct from originals)\n• Learning rate: 1.8-2.0 (strong style learning)\n• Style categories: fantasy, cinematic, anime (adjust to preference)\n• Feature emphasis: character, clothing, accessories\n\n🔄 Evolution Process:\n1. Generate 4 variants → Analyze all designs\n2. BRAIN learns design language → Pick best variant\n3. Suggest evolution (powered up, alternate outfit, etc.)\n4. Generate evolved version → Compare to original\n\n🎯 Use Cases:\n• Game character concepts\n• Fantasy illustration\n• RPG character design\n• Character lineup/roster\n• Animation pre-production\n• Novel/book covers\n• Trading card game art\n• Character turnaround sheets"
+      ],
+      "color": "#1a1a2e",
+      "bgcolor": "#0f0f1e"
+    },
+    {
+      "id": 2,
+      "type": "CheckpointLoaderSimple",
+      "pos": [100, 400],
+      "size": [315, 98],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "outputs": [
+        {"name": "MODEL", "type": "MODEL", "links": [1, 2, 3, 4, 5]},
+        {"name": "CLIP", "type": "CLIP", "links": [6, 7, 8, 9, 10, 11]},
+        {"name": "VAE", "type": "VAE", "links": [12, 13, 14, 15, 16]}
+      ],
+      "properties": {},
+      "widgets_values": ["realisticVisionV60B1_v51VAE.safetensors"],
+      "title": "🎨 Character Art Model"
+    },
+    {
+      "id": 3,
+      "type": "EmptyLatentImage",
+      "pos": [100, 550],
+      "size": [315, 106],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "outputs": [
+        {"name": "LATENT", "type": "LATENT", "links": [17, 18, 19, 20, 21]}
+      ],
+      "properties": {},
+      "widgets_values": [768, 1024, 1],
+      "title": "📐 Character Format (3:4)"
+    },
+    {
+      "id": 4,
+      "type": "CLIPTextEncode",
+      "pos": [500, 400],
+      "size": [450, 200],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {"name": "clip", "type": "CLIP", "link": 6}
+      ],
+      "outputs": [
+        {"name": "CONDITIONING", "type": "CONDITIONING", "links": [22]}
+      ],
+      "properties": {},
+      "widgets_values": ["fantasy warrior character concept art, heavy plate armor, battle-worn, sword and shield, heroic pose, full body, detailed armor design, cinematic lighting, dramatic, game character design, high detail, professional concept art"],
+      "title": "⚔️ Warrior Prompt",
+      "color": "#4a2a2a",
+      "bgcolor": "#2a1a1a"
+    },
+    {
+      "id": 5,
+      "type": "CLIPTextEncode",
+      "pos": [500, 650],
+      "size": [450, 200],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {"name": "clip", "type": "CLIP", "link": 7}
+      ],
+      "outputs": [
+        {"name": "CONDITIONING", "type": "CONDITIONING", "links": [23]}
+      ],
+      "properties": {},
+      "widgets_values": ["fantasy mage character concept art, flowing robes, magical staff, arcane symbols, mystical aura, full body, spell-casting pose, intricate robe design, glowing effects, game character design, high detail, professional concept art"],
+      "title": "🔮 Mage Prompt",
+      "color": "#2a2a4a",
+      "bgcolor": "#1a1a2a"
+    },
+    {
+      "id": 6,
+      "type": "CLIPTextEncode",
+      "pos": [500, 900],
+      "size": [450, 200],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {"name": "clip", "type": "CLIP", "link": 8}
+      ],
+      "outputs": [
+        {"name": "CONDITIONING", "type": "CONDITIONING", "links": [24]}
+      ],
+      "properties": {},
+      "widgets_values": ["fantasy rogue character concept art, light leather armor, dual daggers, agile pose, dark colors, full body, stealthy assassin, detailed gear and tools, shadowy atmosphere, game character design, high detail, professional concept art"],
+      "title": "🗡️ Rogue Prompt",
+      "color": "#2a4a2a",
+      "bgcolor": "#1a2a1a"
+    },
+    {
+      "id": 7,
+      "type": "CLIPTextEncode",
+      "pos": [500, 1150],
+      "size": [450, 200],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {"name": "clip", "type": "CLIP", "link": 9}
+      ],
+      "outputs": [
+        {"name": "CONDITIONING", "type": "CONDITIONING", "links": [25]}
+      ],
+      "properties": {},
+      "widgets_values": ["fantasy paladin character concept art, holy armor with gold accents, radiant shield and sword, noble stance, divine light effects, full body, righteous warrior, ornate armor design, glowing aura, game character design, high detail, professional concept art"],
+      "title": "✨ Paladin Prompt",
+      "color": "#4a4a1a",
+      "bgcolor": "#2a2a0a"
+    },
+    {
+      "id": 8,
+      "type": "CLIPTextEncode",
+      "pos": [500, 1400],
+      "size": [450, 150],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {"name": "clip", "type": "CLIP", "link": 10}
+      ],
+      "outputs": [
+        {"name": "CONDITIONING", "type": "CONDITIONING", "links": [26, 27, 28, 29]}
+      ],
+      "properties": {},
+      "widgets_values": ["lowres, bad anatomy, bad hands, text, error, cropped, worst quality, low quality, jpeg artifacts, signature, watermark, blurry, deformed, disfigured, ugly, mutation, out of frame, bad proportions, poorly drawn, amateur"],
+      "title": "🚫 Negative"
+    },
+    {
+      "id": 9,
+      "type": "KSampler",
+      "pos": [1050, 400],
+      "size": [315, 262],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {"name": "model", "type": "MODEL", "link": 1},
+        {"name": "positive", "type": "CONDITIONING", "link": 22},
+        {"name": "negative", "type": "CONDITIONING", "link": 26},
+        {"name": "latent_image", "type": "LATENT", "link": 17}
+      ],
+      "outputs": [
+        {"name": "LATENT", "type": "LATENT", "links": [30]}
+      ],
+      "properties": {},
+      "widgets_values": [12345, "fixed", 45, 7.5, "dpmpp_2m", "karras", 1],
+      "title": "⚔️ Generate Warrior"
+    },
+    {
+      "id": 10,
+      "type": "KSampler",
+      "pos": [1050, 720],
+      "size": [315, 262],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {"name": "model", "type": "MODEL", "link": 2},
+        {"name": "positive", "type": "CONDITIONING", "link": 23},
+        {"name": "negative", "type": "CONDITIONING", "link": 27},
+        {"name": "latent_image", "type": "LATENT", "link": 18}
+      ],
+      "outputs": [
+        {"name": "LATENT", "type": "LATENT", "links": [31]}
+      ],
+      "properties": {},
+      "widgets_values": [23456, "fixed", 45, 7.5, "dpmpp_2m", "karras", 1],
+      "title": "🔮 Generate Mage"
+    },
+    {
+      "id": 11,
+      "type": "KSampler",
+      "pos": [1050, 1040],
+      "size": [315, 262],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {"name": "model", "type": "MODEL", "link": 3},
+        {"name": "positive", "type": "CONDITIONING", "link": 24},
+        {"name": "negative", "type": "CONDITIONING", "link": 28},
+        {"name": "latent_image", "type": "LATENT", "link": 19}
+      ],
+      "outputs": [
+        {"name": "LATENT", "type": "LATENT", "links": [32]}
+      ],
+      "properties": {},
+      "widgets_values": [34567, "fixed", 45, 7.5, "dpmpp_2m", "karras", 1],
+      "title": "🗡️ Generate Rogue"
+    },
+    {
+      "id": 12,
+      "type": "KSampler",
+      "pos": [1050, 1360],
+      "size": [315, 262],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {"name": "model", "type": "MODEL", "link": 4},
+        {"name": "positive", "type": "CONDITIONING", "link": 25},
+        {"name": "negative", "type": "CONDITIONING", "link": 29},
+        {"name": "latent_image", "type": "LATENT", "link": 20}
+      ],
+      "outputs": [
+        {"name": "LATENT", "type": "LATENT", "links": [33]}
+      ],
+      "properties": {},
+      "widgets_values": [45678, "fixed", 45, 7.5, "dpmpp_2m", "karras", 1],
+      "title": "✨ Generate Paladin"
+    },
+    {
+      "id": 13,
+      "type": "VAEDecode",
+      "pos": [1450, 400],
+      "size": [210, 46],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {"name": "samples", "type": "LATENT", "link": 30},
+        {"name": "vae", "type": "VAE", "link": 12}
+      ],
+      "outputs": [
+        {"name": "IMAGE", "type": "IMAGE", "links": [34, 35]}
+      ],
+      "properties": {}
+    },
+    {
+      "id": 14,
+      "type": "VAEDecode",
+      "pos": [1450, 720],
+      "size": [210, 46],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {"name": "samples", "type": "LATENT", "link": 31},
+        {"name": "vae", "type": "VAE", "link": 13}
+      ],
+      "outputs": [
+        {"name": "IMAGE", "type": "IMAGE", "links": [36, 37]}
+      ],
+      "properties": {}
+    },
+    {
+      "id": 15,
+      "type": "VAEDecode",
+      "pos": [1450, 1040],
+      "size": [210, 46],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {"name": "samples", "type": "LATENT", "link": 32},
+        {"name": "vae", "type": "VAE", "link": 14}
+      ],
+      "outputs": [
+        {"name": "IMAGE", "type": "IMAGE", "links": [38, 39]}
+      ],
+      "properties": {}
+    },
+    {
+      "id": 16,
+      "type": "VAEDecode",
+      "pos": [1450, 1360],
+      "size": [210, 46],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [
+        {"name": "samples", "type": "LATENT", "link": 33},
+        {"name": "vae", "type": "VAE", "link": 15}
+      ],
+      "outputs": [
+        {"name": "IMAGE", "type": "IMAGE", "links": [40, 41]}
+      ],
+      "properties": {}
+    },
+    {
+      "id": 17,
+      "type": "SaveImage",
+      "pos": [1750, 400],
+      "size": [315, 270],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [
+        {"name": "images", "type": "IMAGE", "link": 34}
+      ],
+      "properties": {},
+      "widgets_values": ["character_warrior"],
+      "title": "💾 Save Warrior"
+    },
+    {
+      "id": 18,
+      "type": "SaveImage",
+      "pos": [1750, 720],
+      "size": [315, 270],
+      "flags": {},
+      "order": 17,
+      "mode": 0,
+      "inputs": [
+        {"name": "images", "type": "IMAGE", "link": 36}
+      ],
+      "properties": {},
+      "widgets_values": ["character_mage"],
+      "title": "💾 Save Mage"
+    },
+    {
+      "id": 19,
+      "type": "SaveImage",
+      "pos": [1750, 1040],
+      "size": [315, 270],
+      "flags": {},
+      "order": 18,
+      "mode": 0,
+      "inputs": [
+        {"name": "images", "type": "IMAGE", "link": 38}
+      ],
+      "properties": {},
+      "widgets_values": ["character_rogue"],
+      "title": "💾 Save Rogue"
+    },
+    {
+      "id": 20,
+      "type": "SaveImage",
+      "pos": [1750, 1360],
+      "size": [315, 270],
+      "flags": {},
+      "order": 19,
+      "mode": 0,
+      "inputs": [
+        {"name": "images", "type": "IMAGE", "link": 40}
+      ],
+      "properties": {},
+      "widgets_values": ["character_paladin"],
+      "title": "💾 Save Paladin"
+    },
+    {
+      "id": 21,
+      "type": "BrainsXDEV_Florence2Adapter",
+      "pos": [2150, 400],
+      "size": [350, 130],
+      "flags": {},
+      "order": 20,
+      "mode": 0,
+      "inputs": [
+        {"name": "image", "type": "IMAGE", "link": 35}
+      ],
+      "outputs": [
+        {"name": "caption", "type": "STRING", "links": [42]},
+        {"name": "metadata", "type": "DICT", "links": null}
+      ],
+      "properties": {},
+      "widgets_values": ["microsoft/Florence-2-base", "<DETAILED_CAPTION>", 256],
+      "title": "🔍 Analyze Warrior"
+    },
+    {
+      "id": 22,
+      "type": "BrainsXDEV_Florence2Adapter",
+      "pos": [2150, 720],
+      "size": [350, 130],
+      "flags": {},
+      "order": 21,
+      "mode": 0,
+      "inputs": [
+        {"name": "image", "type": "IMAGE", "link": 37}
+      ],
+      "outputs": [
+        {"name": "caption", "type": "STRING", "links": [43]},
+        {"name": "metadata", "type": "DICT", "links": null}
+      ],
+      "properties": {},
+      "widgets_values": ["microsoft/Florence-2-base", "<DETAILED_CAPTION>", 256],
+      "title": "🔍 Analyze Mage"
+    },
+    {
+      "id": 23,
+      "type": "BrainsXDEV_Florence2Adapter",
+      "pos": [2150, 1040],
+      "size": [350, 130],
+      "flags": {},
+      "order": 22,
+      "mode": 0,
+      "inputs": [
+        {"name": "image", "type": "IMAGE", "link": 39}
+      ],
+      "outputs": [
+        {"name": "caption", "type": "STRING", "links": [44]},
+        {"name": "metadata", "type": "DICT", "links": null}
+      ],
+      "properties": {},
+      "widgets_values": ["microsoft/Florence-2-base", "<DETAILED_CAPTION>", 256],
+      "title": "🔍 Analyze Rogue"
+    },
+    {
+      "id": 24,
+      "type": "BrainsXDEV_Florence2Adapter",
+      "pos": [2150, 1360],
+      "size": [350, 130],
+      "flags": {},
+      "order": 23,
+      "mode": 0,
+      "inputs": [
+        {"name": "image", "type": "IMAGE", "link": 41}
+      ],
+      "outputs": [
+        {"name": "caption", "type": "STRING", "links": [45]},
+        {"name": "metadata", "type": "DICT", "links": null}
+      ],
+      "properties": {},
+      "widgets_values": ["microsoft/Florence-2-base", "<DETAILED_CAPTION>", 256],
+      "title": "🔍 Analyze Paladin"
+    },
+    {
+      "id": 25,
+      "type": "BrainsXDEV_PromptBrainSource",
+      "pos": [2600, 720],
+      "size": [280, 110],
+      "flags": {},
+      "order": 24,
+      "mode": 0,
+      "outputs": [
+        {"name": "brain_data", "type": "BRAIN", "links": [46]}
+      ],
+      "properties": {},
+      "widgets_values": ["<create_new>", false],
+      "title": "🧠 Character Design BRAIN"
+    },
+    {
+      "id": 26,
+      "type": "BrainsXDEV_PromptBrainLearnDirect",
+      "pos": [2600, 880],
+      "size": [400, 210],
+      "flags": {},
+      "order": 25,
+      "mode": 0,
+      "inputs": [
+        {"name": "brain_data", "type": "BRAIN", "link": 46},
+        {"name": "prompt", "type": "STRING", "link": 42},
+        {"name": "prompt", "type": "STRING", "link": 43},
+        {"name": "prompt", "type": "STRING", "link": 44},
+        {"name": "prompt", "type": "STRING", "link": 45}
+      ],
+      "outputs": [
+        {"name": "brain_data", "type": "BRAIN", "links": [47]},
+        {"name": "status", "type": "STRING", "links": null}
+      ],
+      "properties": {},
+      "widgets_values": ["", 0.85, "fantasy", "character", 2.0],
+      "title": "📚 Learn ALL Designs"
+    },
+    {
+      "id": 27,
+      "type": "BrainsXDEV_PromptBrainSuggestDirect",
+      "pos": [3100, 880],
+      "size": [450, 280],
+      "flags": {},
+      "order": 26,
+      "mode": 0,
+      "inputs": [
+        {"name": "brain_data", "type": "BRAIN", "link": 47},
+        {"name": "base_prompt", "type": "STRING", "widget": {"name": "base_prompt"}}
+      ],
+      "outputs": [
+        {"name": "brain_data", "type": "BRAIN", "links": null},
+        {"name": "suggestion_1", "type": "STRING", "links": [48]},
+        {"name": "suggestion_2", "type": "STRING", "links": null},
+        {"name": "suggestion_3", "type": "STRING", "links": null}
+      ],
+      "properties": {},
+      "widgets_values": ["evolved fantasy character with enhanced design elements", 3, 1.5, "fantasy", 0.85],
+      "title": "💡 Suggest Evolution"
+    },
+    {
+      "id": 28,
+      "type": "CLIPTextEncode",
+      "pos": [3650, 880],
+      "size": [400, 200],
+      "flags": {},
+      "order": 27,
+      "mode": 0,
+      "inputs": [
+        {"name": "clip", "type": "CLIP", "link": 11},
+        {"name": "text", "type": "STRING", "link": 48}
+      ],
+      "outputs": [
+        {"name": "CONDITIONING", "type": "CONDITIONING", "links": [49]}
+      ],
+      "properties": {},
+      "widgets_values": [""],
+      "title": "✨ Evolved Character"
+    },
+    {
+      "id": 29,
+      "type": "KSampler",
+      "pos": [4150, 880],
+      "size": [315, 262],
+      "flags": {},
+      "order": 28,
+      "mode": 0,
+      "inputs": [
+        {"name": "model", "type": "MODEL", "link": 5},
+        {"name": "positive", "type": "CONDITIONING", "link": 49},
+        {"name": "negative", "type": "CONDITIONING", "link": 50},
+        {"name": "latent_image", "type": "LATENT", "link": 21}
+      ],
+      "outputs": [
+        {"name": "LATENT", "type": "LATENT", "links": [51]}
+      ],
+      "properties": {},
+      "widgets_values": [99999, "fixed", 50, 8.0, "dpmpp_2m", "karras", 1],
+      "title": "🎮 Generate EVOLVED",
+      "color": "#4a4a1a",
+      "bgcolor": "#2a2a0a"
+    },
+    {
+      "id": 30,
+      "type": "CLIPTextEncode",
+      "pos": [3650, 1130],
+      "size": [400, 150],
+      "flags": {},
+      "order": 29,
+      "mode": 0,
+      "inputs": [
+        {"name": "clip", "type": "CLIP", "link": null}
+      ],
+      "outputs": [
+        {"name": "CONDITIONING", "type": "CONDITIONING", "links": [50]}
+      ],
+      "properties": {},
+      "widgets_values": ["lowres, bad anatomy, bad hands, text, error, cropped, worst quality, low quality, jpeg artifacts, signature, watermark, blurry, deformed, disfigured, ugly, mutation, out of frame"],
+      "title": "🚫 Negative"
+    },
+    {
+      "id": 31,
+      "type": "VAEDecode",
+      "pos": [4550, 880],
+      "size": [210, 46],
+      "flags": {},
+      "order": 30,
+      "mode": 0,
+      "inputs": [
+        {"name": "samples", "type": "LATENT", "link": 51},
+        {"name": "vae", "type": "VAE", "link": 16}
+      ],
+      "outputs": [
+        {"name": "IMAGE", "type": "IMAGE", "links": [52]}
+      ],
+      "properties": {}
+    },
+    {
+      "id": 32,
+      "type": "SaveImage",
+      "pos": [4850, 880],
+      "size": [315, 270],
+      "flags": {},
+      "order": 31,
+      "mode": 0,
+      "inputs": [
+        {"name": "images", "type": "IMAGE", "link": 52}
+      ],
+      "properties": {},
+      "widgets_values": ["character_EVOLVED"],
+      "title": "💾 Save EVOLVED",
+      "color": "#4a4a1a",
+      "bgcolor": "#2a2a0a"
+    }
+  ],
+  "links": [
+    [1, 2, 0, 9, 0, "MODEL"],
+    [2, 2, 0, 10, 0, "MODEL"],
+    [3, 2, 0, 11, 0, "MODEL"],
+    [4, 2, 0, 12, 0, "MODEL"],
+    [5, 2, 0, 29, 0, "MODEL"],
+    [6, 2, 1, 4, 0, "CLIP"],
+    [7, 2, 1, 5, 0, "CLIP"],
+    [8, 2, 1, 6, 0, "CLIP"],
+    [9, 2, 1, 7, 0, "CLIP"],
+    [10, 2, 1, 8, 0, "CLIP"],
+    [11, 2, 1, 28, 0, "CLIP"],
+    [12, 2, 2, 13, 1, "VAE"],
+    [13, 2, 2, 14, 1, "VAE"],
+    [14, 2, 2, 15, 1, "VAE"],
+    [15, 2, 2, 16, 1, "VAE"],
+    [16, 2, 2, 31, 1, "VAE"],
+    [17, 3, 0, 9, 3, "LATENT"],
+    [18, 3, 0, 10, 3, "LATENT"],
+    [19, 3, 0, 11, 3, "LATENT"],
+    [20, 3, 0, 12, 3, "LATENT"],
+    [21, 3, 0, 29, 3, "LATENT"],
+    [22, 4, 0, 9, 1, "CONDITIONING"],
+    [23, 5, 0, 10, 1, "CONDITIONING"],
+    [24, 6, 0, 11, 1, "CONDITIONING"],
+    [25, 7, 0, 12, 1, "CONDITIONING"],
+    [26, 8, 0, 9, 2, "CONDITIONING"],
+    [27, 8, 0, 10, 2, "CONDITIONING"],
+    [28, 8, 0, 11, 2, "CONDITIONING"],
+    [29, 8, 0, 12, 2, "CONDITIONING"],
+    [30, 9, 0, 13, 0, "LATENT"],
+    [31, 10, 0, 14, 0, "LATENT"],
+    [32, 11, 0, 15, 0, "LATENT"],
+    [33, 12, 0, 16, 0, "LATENT"],
+    [34, 13, 0, 17, 0, "IMAGE"],
+    [35, 13, 0, 21, 0, "IMAGE"],
+    [36, 14, 0, 18, 0, "IMAGE"],
+    [37, 14, 0, 22, 0, "IMAGE"],
+    [38, 15, 0, 19, 0, "IMAGE"],
+    [39, 15, 0, 23, 0, "IMAGE"],
+    [40, 16, 0, 20, 0, "IMAGE"],
+    [41, 16, 0, 24, 0, "IMAGE"],
+    [42, 21, 0, 26, 1, "STRING"],
+    [43, 22, 0, 26, 1, "STRING"],
+    [44, 23, 0, 26, 1, "STRING"],
+    [45, 24, 0, 26, 1, "STRING"],
+    [46, 25, 0, 26, 0, "BRAIN"],
+    [47, 26, 0, 27, 0, "BRAIN"],
+    [48, 27, 1, 28, 1, "STRING"],
+    [49, 28, 0, 29, 1, "CONDITIONING"],
+    [50, 30, 0, 29, 2, "CONDITIONING"],
+    [51, 29, 0, 31, 0, "LATENT"],
+    [52, 31, 0, 32, 0, "IMAGE"]
+  ],
+  "groups": [
+    {
+      "title": "🎮 1. CHARACTER VARIANTS (4 Archetypes)",
+      "bounding": [70, 370, 2020, 1280],
+      "color": "#3f789e",
+      "font_size": 24
+    },
+    {
+      "title": "🔍 2. ANALYSIS & LEARNING",
+      "bounding": [2120, 370, 1010, 1150],
+      "color": "#a1309b",
+      "font_size": 24
+    },
+    {
+      "title": "✨ 3. EVOLVED CHARACTER",
+      "bounding": [3070, 850, 3120, 450],
+      "color": "#8a8",
+      "font_size": 24
+    }
+  ],
+  "config": {},
+  "extra": {
+    "workspace_info": {
+      "id": "character-concept-art",
+      "version": "1.0.0",
+      "description": "Fantasy/game character design with multi-variant generation and evolution"
+    }
+  },
+  "version": 0.4
+}

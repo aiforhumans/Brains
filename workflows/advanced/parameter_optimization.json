@@ -1,0 +1,334 @@
+{
+  "last_node_id": 16,
+  "last_link_id": 22,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "Note",
+      "pos": [50, 50],
+      "size": [1900, 280],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "properties": {},
+      "widgets_values": [
+        "🔧 PARAMETER OPTIMIZATION - Brains-XDEV Advanced\n\n✨ Purpose: Automatically discover optimal generation parameters using AI analysis\n\n📋 Workflow Stages:\n1. BASELINE GENERATION - Create image with default parameters\n2. AI QUALITY ANALYSIS - Comprehensive scoring with detailed feedback\n3. PARAMETER OPTIMIZATION - AI suggests optimal steps, CFG, sampler, scheduler\n4. OPTIMIZED GENERATION - Regenerate with improved settings\n5. COMPARISON - Side-by-side quality metrics\n6. LEARNING - Store optimal parameters for future use\n\n🔄 How It Works:\n1. Start with baseline (steps:20, cfg:8.0, sampler:euler)\n2. Quality Score analyzes what's lacking\n3. Parameter Optimizer reads analysis\n4. Suggests optimal settings:\n   • Low detail → increase steps\n   • Over-saturated → lower CFG\n   • Noise issues → change sampler\n   • Artifacts → adjust scheduler\n5. Generate with optimized params\n6. Compare before/after scores\n\n🎯 Expected Results:\n• Iteration 1: Baseline (score ~0.5)\n• After optimization: +0.1-0.3 score improvement\n• Typical optimizations:\n  - Steps: 20→30 for detail\n  - CFG: 8.0→6.5 for balance\n  - Sampler: euler→dpm++2m for smoothness\n\n💡 Tips:\n• optimization_strength: 1.0 (balanced)\n• Use 'detailed' depth for best analysis\n• Higher base_steps if time allows\n• Compare multiple optimization runs\n• Save successful parameter sets\n\n🔮 Advanced:\n• Chain multiple optimizations\n• A/B test different strengths\n• Build parameter database\n• Auto-tune per checkpoint"
+      ],
+      "color": "#222",
+      "bgcolor": "#000"
+    },
+    {
+      "id": 2,
+      "type": "CheckpointLoaderSimple",
+      "pos": [100, 400],
+      "size": [350, 100],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "outputs": [
+        {"name": "MODEL", "type": "MODEL", "links": [1, 2]},
+        {"name": "CLIP", "type": "CLIP", "links": [3, 4]},
+        {"name": "VAE", "type": "VAE", "links": [5, 6]}
+      ],
+      "properties": {},
+      "widgets_values": ["sd_xl_base_1.0.safetensors"],
+      "title": "🎨 Load Model"
+    },
+    {
+      "id": 3,
+      "type": "CLIPTextEncode",
+      "pos": [100, 550],
+      "size": [400, 200],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [{"name": "clip", "type": "CLIP", "link": 3}],
+      "outputs": [{"name": "CONDITIONING", "type": "CONDITIONING", "links": [7, 8]}],
+      "properties": {},
+      "widgets_values": ["cyberpunk city at night, neon lights, rain, futuristic architecture, highly detailed, 8k"],
+      "title": "✏️ Prompt"
+    },
+    {
+      "id": 4,
+      "type": "CLIPTextEncode",
+      "pos": [100, 800],
+      "size": [400, 100],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [{"name": "clip", "type": "CLIP", "link": 4}],
+      "outputs": [{"name": "CONDITIONING", "type": "CONDITIONING", "links": [9, 10]}],
+      "properties": {},
+      "widgets_values": ["blurry, low quality, distorted, ugly"],
+      "title": "🚫 Negative"
+    },
+    {
+      "id": 5,
+      "type": "EmptyLatentImage",
+      "pos": [100, 950],
+      "size": [315, 110],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "outputs": [{"name": "LATENT", "type": "LATENT", "links": [11, 12]}],
+      "properties": {},
+      "widgets_values": [1024, 1024, 1],
+      "title": "📐 Latent"
+    },
+    {
+      "id": 6,
+      "type": "KSampler",
+      "pos": [600, 400],
+      "size": [315, 262],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {"name": "model", "type": "MODEL", "link": 1},
+        {"name": "positive", "type": "CONDITIONING", "link": 7},
+        {"name": "negative", "type": "CONDITIONING", "link": 9},
+        {"name": "latent_image", "type": "LATENT", "link": 11}
+      ],
+      "outputs": [{"name": "LATENT", "type": "LATENT", "links": [13]}],
+      "properties": {},
+      "widgets_values": [12345, "fixed", 20, 8.0, "euler", "normal", 1.0],
+      "title": "🎲 Baseline Generation"
+    },
+    {
+      "id": 7,
+      "type": "VAEDecode",
+      "pos": [1000, 400],
+      "size": [210, 46],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {"name": "samples", "type": "LATENT", "link": 13},
+        {"name": "vae", "type": "VAE", "link": 5}
+      ],
+      "outputs": [{"name": "IMAGE", "type": "IMAGE", "links": [14, 15]}],
+      "properties": {},
+      "title": "🖼️ Decode Baseline"
+    },
+    {
+      "id": 8,
+      "type": "BrainsXDEV_Florence2Adapter",
+      "pos": [1300, 400],
+      "size": [350, 130],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [{"name": "image", "type": "IMAGE", "link": 14}],
+      "outputs": [
+        {"name": "caption", "type": "STRING", "links": [16]},
+        {"name": "metadata", "type": "DICT", "links": null}
+      ],
+      "properties": {},
+      "widgets_values": ["microsoft/Florence-2-base", "<DETAILED_CAPTION>", 128],
+      "title": "🤖 Analyze"
+    },
+    {
+      "id": 9,
+      "type": "BrainsXDEV_PromptBrainQualityScore",
+      "pos": [1300, 580],
+      "size": [350, 310],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {"name": "image", "type": "IMAGE", "link": 15},
+        {"name": "caption", "type": "STRING", "link": 16}
+      ],
+      "outputs": [
+        {"name": "score", "type": "FLOAT", "links": [17]},
+        {"name": "analysis", "type": "STRING", "links": [18]},
+        {"name": "grade", "type": "STRING", "links": null},
+        {"name": "metadata", "type": "DICT", "links": null}
+      ],
+      "properties": {},
+      "widgets_values": ["", "overall_quality", "detailed", "balanced", 0, 0, true, true, true, true],
+      "title": "🎯 Quality Analysis"
+    },
+    {
+      "id": 10,
+      "type": "BrainsXDEV_PromptBrainSource",
+      "pos": [1700, 400],
+      "size": [280, 110],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "outputs": [{"name": "brain_data", "type": "BRAIN", "links": [19]}],
+      "properties": {},
+      "widgets_values": ["<auto_find>", false, true],
+      "title": "🧠 BRAIN Source"
+    },
+    {
+      "id": 11,
+      "type": "BrainsXDEV_PromptBrainParameterOptimizer",
+      "pos": [1700, 560],
+      "size": [400, 250],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {"name": "brain_data", "type": "BRAIN", "link": 19},
+        {"name": "quality_analysis", "type": "STRING", "link": 18}
+      ],
+      "outputs": [
+        {"name": "brain_data", "type": "BRAIN", "links": null},
+        {"name": "optimized_steps", "type": "INT", "links": [20]},
+        {"name": "optimized_cfg", "type": "FLOAT", "links": [21]},
+        {"name": "optimized_sampler", "type": "STRING", "links": [22]},
+        {"name": "optimized_scheduler", "type": "STRING", "links": [23]},
+        {"name": "optimization_report", "type": "STRING", "links": [24]}
+      ],
+      "properties": {},
+      "widgets_values": ["", 1.0, 20, 8.0],
+      "title": "🔧 Optimize Parameters"
+    },
+    {
+      "id": 12,
+      "type": "ShowText|pysssss",
+      "pos": [1700, 860],
+      "size": [400, 300],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [{"name": "text", "type": "STRING", "link": 24}],
+      "properties": {},
+      "title": "📊 Optimization Report"
+    },
+    {
+      "id": 13,
+      "type": "KSampler",
+      "pos": [600, 750],
+      "size": [315, 262],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {"name": "model", "type": "MODEL", "link": 2},
+        {"name": "positive", "type": "CONDITIONING", "link": 8},
+        {"name": "negative", "type": "CONDITIONING", "link": 10},
+        {"name": "latent_image", "type": "LATENT", "link": 12},
+        {"name": "steps", "type": "INT", "widget": {"name": "steps"}, "link": 20},
+        {"name": "cfg", "type": "FLOAT", "widget": {"name": "cfg"}, "link": 21}
+      ],
+      "outputs": [{"name": "LATENT", "type": "LATENT", "links": [25]}],
+      "properties": {},
+      "widgets_values": [12345, "fixed", 30, 7.0, "dpmpp_2m", "karras", 1.0],
+      "title": "🚀 Optimized Generation (Adjust sampler/scheduler manually)"
+    },
+    {
+      "id": 14,
+      "type": "VAEDecode",
+      "pos": [1000, 750],
+      "size": [210, 46],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {"name": "samples", "type": "LATENT", "link": 25},
+        {"name": "vae", "type": "VAE", "link": 6}
+      ],
+      "outputs": [{"name": "IMAGE", "type": "IMAGE", "links": [26]}],
+      "properties": {},
+      "title": "🖼️ Decode Optimized"
+    },
+    {
+      "id": 15,
+      "type": "SaveImage",
+      "pos": [1000, 850],
+      "size": [250, 270],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [{"name": "images", "type": "IMAGE", "link": 26}],
+      "properties": {},
+      "widgets_values": ["optimized"],
+      "title": "💾 Save Optimized"
+    },
+    {
+      "id": 16,
+      "type": "Note",
+      "pos": [2150, 400],
+      "size": [500, 760],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "properties": {},
+      "widgets_values": [
+        "🔧 PARAMETER OPTIMIZATION GUIDE\n\n📋 Workflow Process:\n\n1️⃣ BASELINE:\n   • Node #6: Default parameters\n   • steps: 20\n   • cfg: 8.0\n   • sampler: euler\n   • scheduler: normal\n\n2️⃣ ANALYSIS:\n   • Florence2 captions image\n   • Quality Score analyzes:\n     - Technical quality\n     - Artistic merit\n     - Specific issues\n\n3️⃣ OPTIMIZATION:\n   • Node #11: Parameter Optimizer\n   • Reads quality analysis\n   • Suggests improvements:\n\n   Issue → Fix:\n   • Low detail → +5-15 steps\n   • Over-saturated → -1.5 CFG\n   • Noise → change sampler\n   • Artifacts → adjust scheduler\n\n4️⃣ REGENERATION:\n   • Node #13: Auto-adjusted steps/CFG\n   • ⚠️ MANUAL: Set sampler/scheduler from report\n   • Same seed for comparison\n   • Should show improvement\n\n⚠️ IMPORTANT:\nSteps and CFG auto-connect from optimizer.\nSampler and scheduler CANNOT auto-connect\n(ComfyUI limitation - enum types).\n\nTO USE OPTIMIZATION:\n1. Queue workflow once (baseline)\n2. Read optimization report (node #12)\n3. Manually set sampler/scheduler on node #13\n4. Queue again (optimized)\n\n📊 Understanding Output:\n\nOptimization Report shows:\n• Detected issues\n• Parameter adjustments\n• Expected improvements\n• Confidence level\n• ✅ Optimized steps (auto-applied)\n• ✅ Optimized CFG (auto-applied)\n• ⚠️ Optimized sampler (manual)\n• ⚠️ Optimized scheduler (manual)\n\n🎯 Typical Adjustments:\n\nSteps:\n• 20→25: Minor detail boost\n• 20→30: Significant improvement\n• 20→40+: Maximum quality\n\nCFG:\n• 8.0→6.5: More natural\n• 8.0→7.0: Slight softening\n• 8.0→5.0: Very soft/creative\n\nSampler:\n• euler→dpmpp_2m: Smoother\n• euler→euler_ancestral: More detail\n• euler→heun: Better coherence\n\nScheduler:\n• normal→karras: Better noise\n• normal→exponential: Smoother\n• normal→sgm_uniform: Experimental\n\n⚙️ Tuning:\n\noptimization_strength:\n• 0.5: Conservative changes\n• 1.0: Balanced (default)\n• 1.5: Aggressive optimization\n• 2.0: Maximum adjustment\n\n💡 Best Practices:\n\n✓ Use detailed analysis depth\n✓ Read report before regenerating\n✓ Manually update sampler/scheduler\n✓ Compare baseline vs optimized\n✓ Try different strengths\n✓ Save working combinations\n\n✗ Don't skip reading report\n✗ Don't change seed between runs\n✗ Don't expect sampler to auto-change\n✗ Don't ignore manual steps\n\n🔬 Iteration Strategy:\n\n1. Run baseline (queue once)\n2. Review optimization report\n3. Manually set sampler/scheduler\n4. Run optimized (queue again)\n5. Compare results\n6. If score improves >0.1: Success!\n7. If similar: Try strength 1.5\n8. If worse: Lower strength to 0.5\n\n🎯 Success Metrics:\n\n• Score improvement: +0.1-0.3\n• Visual quality: Noticeable\n• Generation time: Acceptable\n• Consistency: Reproducible"
+      ],
+      "color": "#233",
+      "bgcolor": "#355"
+    }
+  ],
+  "links": [
+    [1, 2, 0, 6, 0, "MODEL"],
+    [2, 2, 0, 13, 0, "MODEL"],
+    [3, 2, 1, 3, 0, "CLIP"],
+    [4, 2, 1, 4, 0, "CLIP"],
+    [5, 2, 2, 7, 1, "VAE"],
+    [6, 2, 2, 14, 1, "VAE"],
+    [7, 3, 0, 6, 1, "CONDITIONING"],
+    [8, 3, 0, 13, 1, "CONDITIONING"],
+    [9, 4, 0, 6, 2, "CONDITIONING"],
+    [10, 4, 0, 13, 2, "CONDITIONING"],
+    [11, 5, 0, 6, 3, "LATENT"],
+    [12, 5, 0, 13, 3, "LATENT"],
+    [13, 6, 0, 7, 0, "LATENT"],
+    [14, 7, 0, 8, 0, "IMAGE"],
+    [15, 7, 0, 9, 0, "IMAGE"],
+    [16, 8, 0, 9, 1, "STRING"],
+    [17, 9, 0, null, 0, "FLOAT"],
+    [18, 9, 1, 11, 1, "STRING"],
+    [19, 10, 0, 11, 0, "BRAIN"],
+    [20, 11, 1, 13, 4, "INT"],
+    [21, 11, 2, 13, 5, "FLOAT"],
+    [24, 11, 5, 12, 0, "STRING"],
+    [25, 13, 0, 14, 0, "LATENT"],
+    [26, 14, 0, 15, 0, "IMAGE"]
+  ],
+  "groups": [
+    {
+      "title": "🎨 1. SETUP",
+      "bounding": [70, 370, 460, 720],
+      "color": "#3f789e",
+      "font_size": 24
+    },
+    {
+      "title": "🎲 2. BASELINE GENERATION",
+      "bounding": [570, 370, 380, 320],
+      "color": "#a1309b",
+      "font_size": 24
+    },
+    {
+      "title": "🤖 3. AI ANALYSIS",
+      "bounding": [970, 370, 710, 550],
+      "color": "#88a",
+      "font_size": 24
+    },
+    {
+      "title": "🔧 4. OPTIMIZATION",
+      "bounding": [1670, 370, 460, 820],
+      "color": "#8a8",
+      "font_size": 24
+    },
+    {
+      "title": "🚀 5. OPTIMIZED GENERATION",
+      "bounding": [570, 720, 710, 430],
+      "color": "#a85",
+      "font_size": 24
+    }
+  ],
+  "config": {},
+  "extra": {
+    "workspace_info": {
+      "id": "parameter-optimization",
+      "version": "1.0.0",
+      "description": "AI-powered parameter optimization for quality improvement"
+    }
+  },
+  "version": 0.4
+}

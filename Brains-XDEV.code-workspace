@@ -1,0 +1,10 @@
+{
+  "folders": [
+    { "name": "Brains-XDEV", "path": "." },
+    { "name": "ComfyUI Node Folder", "path": "C:/comfy/ComfyUI_windows_portable/ComfyUI/custom_nodes/comfyui-Brains-XDEV" }
+  ],
+  "settings": {
+    "files.exclude": { "**/__pycache__": true },
+    "python.defaultInterpreterPath": "C:/comfy/ComfyUI_windows_portable/python_embeded/python.exe"
+  }
+}

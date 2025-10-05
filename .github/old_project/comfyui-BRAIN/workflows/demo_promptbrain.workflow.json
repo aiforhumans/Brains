@@ -1,0 +1,140 @@
+{
+  "last_node_id": 8,
+  "nodes": {
+    "1": {
+      "type": "LoadImage",
+      "pos": [
+        100,
+        100
+      ],
+      "widgets_values": {
+        "image": "example.png"
+      }
+    },
+    "2": {
+      "type": "PB_WD14Tagger",
+      "pos": [
+        400,
+        80
+      ],
+      "widgets_values": {
+        "min_conf": 0.35,
+        "allow_list": "",
+        "deny_list": ""
+      }
+    },
+    "3": {
+      "type": "PB_Captioner",
+      "pos": [
+        400,
+        220
+      ],
+      "widgets_values": {
+        "model_hint": "external",
+        "prompt": "Describe the image"
+      }
+    },
+    "4": {
+      "type": "PB_Scorer",
+      "pos": [
+        400,
+        360
+      ],
+      "widgets_values": {
+        "score": 0.7,
+        "notes": ""
+      }
+    },
+    "5": {
+      "type": "PB_MemoryWrite",
+      "pos": [
+        650,
+        220
+      ],
+      "widgets_values": {
+        "context": "SDXL test"
+      }
+    },
+    "6": {
+      "type": "PB_MemoryRead",
+      "pos": [
+        900,
+        220
+      ],
+      "widgets_values": {
+        "top_k": 5,
+        "min_score": 0.0,
+        "like_text": ""
+      }
+    },
+    "7": {
+      "type": "PB_PromptSuggester",
+      "pos": [
+        1150,
+        220
+      ],
+      "widgets_values": {
+        "max_terms": 16,
+        "negatives": "(watermark:1.2), (text:1.2)"
+      }
+    },
+    "8": {
+      "type": "CLIPTextEncode",
+      "pos": [
+        1400,
+        220
+      ],
+      "widgets_values": {}
+    }
+  },
+  "links": [
+    [
+      1,
+      0,
+      2,
+      0
+    ],
+    [
+      1,
+      0,
+      3,
+      0
+    ],
+    [
+      2,
+      1,
+      5,
+      0
+    ],
+    [
+      3,
+      0,
+      5,
+      1
+    ],
+    [
+      4,
+      0,
+      5,
+      2
+    ],
+    [
+      6,
+      0,
+      7,
+      1
+    ],
+    [
+      2,
+      1,
+      7,
+      0
+    ],
+    [
+      7,
+      0,
+      8,
+      0
+    ]
+  ]
+}
