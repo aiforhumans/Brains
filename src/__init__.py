@@ -111,6 +111,35 @@ try:
 except ImportError as e:
     print(f"[Brains-XDEV] Separate PromptBrain nodes not available: {e}")
 
+# Import beginner-friendly wrapper nodes
+try:
+    from .smart_memory_loader import BrainsXDEV_SmartMemoryLoader
+    from .smart_prompt_helper import BrainsXDEV_SmartPromptHelper
+    from .memory_teacher import BrainsXDEV_MemoryTeacher
+    from .auto_quality_rater import BrainsXDEV_AutoQualityRater
+    from .memory_stats_dashboard import BrainsXDEV_MemoryStatsDashboard
+    
+    NODE_CLASS_MAPPINGS.update({
+        "BrainsXDEV_SmartMemoryLoader": BrainsXDEV_SmartMemoryLoader,
+        "BrainsXDEV_SmartPromptHelper": BrainsXDEV_SmartPromptHelper,
+        "BrainsXDEV_MemoryTeacher": BrainsXDEV_MemoryTeacher,
+        "BrainsXDEV_AutoQualityRater": BrainsXDEV_AutoQualityRater,
+        "BrainsXDEV_MemoryStatsDashboard": BrainsXDEV_MemoryStatsDashboard,
+    })
+    
+    NODE_DISPLAY_NAME_MAPPINGS.update({
+        "BrainsXDEV_SmartMemoryLoader": "Brains-XDEV • Smart Memory Loader (beginner)",
+        "BrainsXDEV_SmartPromptHelper": "Brains-XDEV • Smart Prompt Helper (beginner)",
+        "BrainsXDEV_MemoryTeacher": "Brains-XDEV • Memory Teacher (beginner)",
+        "BrainsXDEV_AutoQualityRater": "Brains-XDEV • Auto Quality Rater (beginner)",
+        "BrainsXDEV_MemoryStatsDashboard": "Brains-XDEV • Memory Stats Dashboard (beginner)",
+    })
+    
+    print("[Brains-XDEV] Beginner-friendly wrapper nodes loaded")
+    
+except ImportError as e:
+    print(f"[Brains-XDEV] Beginner-friendly wrapper nodes not available: {e}")
+
 print(f"[Brains-XDEV] Loaded {len(NODE_CLASS_MAPPINGS)} nodes total")
 
 # Export for ComfyUI discovery
